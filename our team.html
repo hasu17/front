@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Consortium for Climate Change Ethiopia</title>
+    
+    <style>
+        /* General Layout and Responsiveness */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* NAVBAR Styling */
+        .navbar {
+            background-color: #d7f0d4; /* Consistent color */
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #2b5c2d;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: #007bff;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            z-index: 10;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 4px 0;
+        }
+
+        /* Events Section */
+        .events-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .events-container h1 {
+            font-size: 2.5rem;
+            color: #025531;
+            margin-bottom: 2rem;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap; /* Added for responsiveness */
+        }
+
+        .countdown-unit-container {
+            background-color: #AAD9B4;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .unit-digit {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #004d00;
+            line-height: 1;
+        }
+
+        .unit-label {
+            font-size: 1.2rem;
+            color: #004d00;
+            margin-top: 10px;
+        }
+
+        /* FOOTER Styling */
+        .main-footer {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(4, 1fr);
+            gap: 30px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            background-color: #d7f0d4;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo p {
+            margin: 0;
+            font-weight: bold;
+            color: #1c6375;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .social-icons img {
+            height: 24px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #007bff;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .newsletter-form input[type="email"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .newsletter-form button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .newsletter-form + p {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .footer-bottom {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            font-size: 0.8rem;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #d7f0d4;
+                padding-top: 10px;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+            
+            .footer-top {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+            }
+            
+            .countdown-container {
+                gap: 1rem;
+            }
+            
+            .countdown-unit-container {
+                padding: 1rem;
+                min-width: 80px;
+            }
+            
+            .unit-digit {
+                font-size: 2rem;
+            }
+            
+            .unit-label {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="about.html">About &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about_us.html">About Us</a></li>
+                        <li><a href="what_we_do.html">What We Do</a></li>
+                        <li><a href="our_team.html">Our Team</a></li>
+                        <li><a href="our_members.html">Our Members</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="news_and_events.html">News & Events &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="resources.html">Resources &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="publications.html">Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="events-container">
+        <h1>Coming Soon</h1>
+        <div class="countdown-container">
+            <div id="days-container" class="countdown-unit-container">
+                <div class="unit-digit"><span>00</span></div>
+                <p class="unit-label">Days</p>
+            </div>
+            <div id="hours-container" class="countdown-unit-container">
+                <div class="unit-digit"><span>00</span></div>
+                <p class="unit-label">Hours</p>
+            </div>
+            <div id="minutes-container" class="countdown-unit-container">
+                <div class="unit-digit"><span>00</span></div>
+                <p class="unit-label">Minutes</p>
+            </div>
+            <div id="seconds-container" class="countdown-unit-container">
+                <div class="unit-digit"><span>00</span></div>
+                <p class="unit-label">Seconds</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-top">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="CCC-E Logo">
+                    <p>Consortium for Climate Change Ethiopia</p>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><img src="images/icons/instagram.png" alt="Instagram"></a>
+                    <a href="#"><img src="images/icons/twitter2.png" alt="Twitter"></a>
+                    <a href="#"><img src="images/icons/facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="images/icons/linkedin.png" alt="LinkedIn"></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Get in Touch</h3>
+                <ul class="contact-info">
+                    <li>Yeka Sub City, ON the way from Kazanchis to Abuare</li>
+                    <li>Addis Ababa, Ethiopia</li>
+                    <li>ccceethiopia2@gmail.com</li>
+                    <li>(251) 115 52 28 88</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resource</h3>
+                <ul>
+                    <li><a href="reports.html">Publication & Reports</a></li>
+                    <li><a href="#">Digital Forestry Information Hub</a></li>
+                    <li><a href="#">Research</a></li>
+                    <li><a href="#">Toolkits & Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Our Company</h3>
+                <ul>
+                    <li><a href="#">project</a></li>
+                    <li><a href="#">Opportunity</a></li>
+                    <li><a href="our_team.html">Our Team</a></li>
+                    <li><a href="news.html">News & Event</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Join a Newsletter</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email">
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p>We are never a spam!</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© Copyright CCC-E 2025. All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+
+        // Set the date we're counting down to
+        const countdownDate = new Date("Dec 31, 2025 23:59:59").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            const formattedDays = String(days).padStart(2, '0');
+            const formattedHours = String(hours).padStart(2, '0');
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+
+            document.querySelector('#days-container .unit-digit span').textContent = formattedDays;
+            document.querySelector('#hours-container .unit-digit span').textContent = formattedHours;
+            document.querySelector('#minutes-container .unit-digit span').textContent = formattedMinutes;
+            document.querySelector('#seconds-container .unit-digit span').textContent = formattedSeconds;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector('.countdown-container').innerHTML = "<h1>THE EVENT HAS STARTED!</h1>";
+            }
+        }
+        
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCountdown();
+        });
+    </script>
+</body>
+</html>

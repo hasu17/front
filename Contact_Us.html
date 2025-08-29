@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - CCC-E</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the dropdown icon and colors */
+        .nav-link-with-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Custom colors for Tailwind JIT */
+        .text-\[#004d00\] { color: #004d00; }
+        .hover\:text-\[#0072BC\]:hover { color: #0072BC; }
+        .bg-\[#004d00\] { background-color: #004d00; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- NAVIGATION -->
+    <nav class="bg-green-200 p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo - Placeholder used for now -->
+            <div class="flex items-center space-x-2">
+                <img src="public\images\logo.png" alt="Logo" class="h-10 rounded-lg">
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <!-- Hover effect updated to a more distinct blue -->
+                <a href="CCC-E.html" class="text-green-900 hover:text-[#0072BC] transition duration-300 font-semibold">Home</a>
+                <!-- Updated "About" dropdown with icon -->
+                <div class="relative group">
+                    <button class="nav-link-with-icon text-green-900 hover:text-[#0072BC] transition duration-300 font-semibold focus:outline-none">
+                        About
+                        <svg class="ml-1 w-4 h-4 fill-current text-[#004d00] group-hover:text-[#0072BC]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                        </svg>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-48 py-2">
+                        <!-- Added subtle background hover effect on dropdown links -->
+                        <a href="About Us.html" class="block px-4 py-2 text-gray-800 hover:bg-green-100">About Us</a>
+                        <a href="our team.html" class="block px-4 py-2 text-gray-800 hover:bg-green-100">Our Team</a>
+                        <a href="our memebrs.html" class="block px-4 py-2 text-gray-800 hover:bg-green-100">Our Members</a>
+                    </div>
+                </div>
+                <!-- Updated "News & Events" dropdown with icon -->
+                <div class="relative group">
+                    <button class="nav-link-with-icon text-green-900 hover:text-[#0072BC] transition duration-300 font-semibold focus:outline-none">
+                        News & Events
+                        <svg class="ml-1 w-4 h-4 fill-current text-[#004d00] group-hover:text-[#0072BC]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                        </svg>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-48 py-2">
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-100">News</a>
+                        <a href="events.html" class="block px-4 py-2 text-gray-800 hover:bg-green-100">Events</a>
+                    </div>
+                </div>
+                <!-- Updated "Resources" dropdown with icon -->
+                <div class="relative group">
+                    <button class="nav-link-with-icon text-green-900 hover:text-[#0072BC] transition duration-300 font-semibold focus:outline-none">
+                        Resources
+                        <svg class="ml-1 w-4 h-4 fill-current text-[#004d00] group-hover:text-[#0072BC]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                        </svg>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-48 py-2">
+                        <a href="reports.html" class="block px-4 py-2 text-gray-800 hover:bg-green-100">Reports</a>
+                        <a href="publications.html" class="block px-4 py-2 text-gray-800 hover:bg-green-100">Publications</a>
+                    </div>
+                </div>
+                <!-- Hover effect updated to a more distinct blue -->
+                <a href="Gallery.html" class="text-green-900 hover:text-[#0072BC] transition duration-300 font-semibold">Gallery</a>
+                <!-- Hover effect updated to a more distinct blue -->
+                <a href="Contact_Us.html" class="text-green-900 hover:text-[#0072BC] transition duration-300 font-semibold">Contact</a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="flex flex-col space-y-2 mt-4">
+                <a href="CCC-E.html" class="text-green-900 hover:bg-green-100 px-4 py-2 rounded-lg">Home</a>
+                <div class="relative">
+                    <button class="nav-link-with-icon text-green-900 px-4 py-2 w-full text-left">
+                        About
+                        <svg class="ml-1 w-4 h-4 fill-current text-[#004d00] group-hover:text-[#0072BC]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                        </svg>
+                    </button>
+                    <div class="pl-4 flex flex-col space-y-1">
+                        <a href="About Us.html" class="text-gray-800 hover:bg-green-100 px-4 py-2 rounded-lg">About Us</a>
+                        <a href="our team.html" class="text-gray-800 hover:bg-green-100 px-4 py-2 rounded-lg">Our Team</a>
+                        <a href="our memebrs.html" class="text-gray-800 hover:bg-green-100 px-4 py-2 rounded-lg">Our Members</a>
+                    </div>
+                </div>
+                <!-- Updated "News & Events" dropdown for mobile -->
+                <div class="relative">
+                    <button class="nav-link-with-icon text-green-900 px-4 py-2 w-full text-left">
+                        News & Events
+                        <svg class="ml-1 w-4 h-4 fill-current text-[#004d00] group-hover:text-[#0072BC]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                        </svg>
+                    </button>
+                    <div class="pl-4 flex flex-col space-y-1">
+                        <a href="#" class="text-gray-800 hover:bg-green-100 px-4 py-2 rounded-lg">News</a>
+                        <a href="events.html" class="text-gray-800 hover:bg-green-100 px-4 py-2 rounded-lg">Events</a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <button class="nav-link-with-icon text-green-900 px-4 py-2 w-full text-left">
+                        Resources
+                        <svg class="ml-1 w-4 h-4 fill-current text-[#004d00] group-hover:text-[#0072BC]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                        </svg>
+                    </button>
+                    <div class="pl-4 flex flex-col space-y-1">
+                        <a href="reports.html" class="text-gray-800 hover:bg-green-100 px-4 py-2 rounded-lg">Reports</a>
+                        <a href="publications.html" class="text-gray-800 hover:bg-green-100 px-4 py-2 rounded-lg">Publications</a>
+                    </div>
+                </div>
+                <a href="Gallery.html" class="text-green-900 hover:bg-green-100 px-4 py-2 rounded-lg">Gallery</a>
+                <!-- Updated "Contact Us" to "Contact" for mobile -->
+                <a href="Contact_Us.html" class="text-green-900 hover:bg-green-100 px-4 py-2 rounded-lg">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION - Background color updated to #004d00 -->
+    <div class="h-64 bg-[#004d00] flex items-center justify-center text-white">
+        <h1 class="text-4xl font-bold">Contact Us</h1>
+    </div>
+
+    <!-- CONTACT INFO CARDS SECTION -->
+    <div class="container mx-auto my-12 p-4 grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+            <div class="bg-blue-300 p-4 rounded-full mb-4">
+                <img src="public/images/icons/Phone icon.jpg" alt="Phone Icon" class="w-10 h-10">
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-green-800">Phone Number</h3>
+            <p class="text-gray-600">(251) 115 52 28 88</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+            <div class="bg-blue-300 p-4 rounded-full mb-4">
+                <img src="public/images/icons/mail.jpg" alt="Email Icon" class="w-10 h-10">
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-green-800">Email Address</h3>
+            <p class="text-gray-600">ccceethiopia2@gmail.com</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center">
+            <div class="bg-blue-300 p-4 rounded-full mb-4">
+                <img src="public/images/icons/Location icon.jpg" alt="Location Icon" class="w-10 h-10">
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-green-800">Office Address</h3>
+            <p class="text-gray-600">Arada Sub-City, Woreda 09, House No. 678, P.O.Box: 1049, Addis Ababa, Ethiopia</p>
+        </div>
+    </div>
+
+    <!-- CONTACT FORM SECTION -->
+    <div class="container mx-auto my-12 p-4 max-w-2xl">
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-center text-green-900 mb-6">Send Us a Message</h2>
+            <form action="#" method="post" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-gray-700 font-semibold mb-1">Your Name</label>
+                    <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label for="email" class="block text-gray-700 font-semibold mb-1">Your Email</label>
+                    <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label for="subject" class="block text-gray-700 font-semibold mb-1">Subject</label>
+                    <input type="text" id="subject" name="subject" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label for="message" class="block text-gray-700 font-semibold mb-1">Your Message</label>
+                    <textarea id="message" name="message" rows="5" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                </div>
+                <div>
+                    <button type="submit" class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-green-500">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 text-gray-200 py-10 px-4">
+        <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- First Column: Logo and Socials -->
+            <div class="flex flex-col items-center sm:items-start text-center sm:text-left">
+                <div class="flex flex-col items-center sm:items-start mb-4">
+                    <img src="public\images\logo.png" alt="CCC-E Logo" class="h-16 w-16 mb-2 rounded-full">
+                    <p class="text-sm">Climate Change Center of Excellence - Ethiopia</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#"><img src="public/images/icons/facebook.png" alt="Facebook" class="w-8 h-8 rounded-full hover:opacity-75 transition duration-300"></a>
+                    <a href="#"><img src="public/images/icons/twitter.png" alt="Twitter" class="w-8 h-8 rounded-full hover:opacity-75 transition duration-300"></a>
+                    <a href="#"><img src="public/images/icons/linkedin.png" alt="LinkedIn" class="w-8 h-8 rounded-full hover:opacity-75 transition duration-300"></a>
+                </div>
+            </div>
+
+            <!-- Contact Info Column -->
+            <div class="mt-8 sm:mt-0">
+                <h3 class="text-lg font-bold mb-3 text-green-400">Contact Info</h3>
+                <ul class="space-y-2 text-sm">
+                    <li>Arada Sub-City, Woreda 09, House No. 678, P.O.Box: 1049, Addis Ababa, Ethiopia</li>
+                    <li>ccceethiopia2@gmail.com</li>
+                    <li>(251) 115 52 28 88</li>
+                </ul>
+            </div>
+
+            <!-- Resource Column -->
+            <div class="mt-8 sm:mt-0">
+                <h3 class="text-lg font-bold mb-3 text-green-400">Resource</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="reports.html" class="hover:underline">Publication & Reports</a></li>
+                    <li><a href="#" class="hover:underline">Digital Forestry Information Hub</a></li>
+                    <li><a href="#" class="hover:underline">Research</a></li>
+                    <li><a href="#" class="hover:underline">Toolkits & Guidelines</a></li>
+                </ul>
+            </div>
+
+            <!-- Our Company Column -->
+            <div class="mt-8 sm:mt-0">
+                <h3 class="text-lg font-bold mb-3 text-green-400">Our Company</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:underline">Project</a></li>
+                    <li><a href="#" class="hover:underline">Opportunity</a></li>
+                    <li><a href="our team.html" class="hover:underline">Our Team</a></li>
+                    <li><a href="events.html" class="hover:underline">News & Event</a></li>
+                    <li><a href="Gallery.html" class="hover:underline">Gallery</a></li>
+                    <li><a href="Contact_Us.html" class="hover:underline">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center mt-8 pt-4 border-t border-gray-700">
+            <p class="text-sm">© Copyright CCC-E 2025. All Rights Reserved</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Handle mobile dropdowns
+            const mobileDropdowns = mobileMenu.querySelectorAll('button');
+            mobileDropdowns.forEach(button => {
+                button.addEventListener('click', () => {
+                    const dropdownContent = button.nextElementSibling;
+                    if (dropdownContent && dropdownContent.classList.contains('pl-4')) {
+                        dropdownContent.classList.toggle('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

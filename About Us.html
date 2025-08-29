@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    
+    <!-- Loading Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        /* Custom styles for the navigation bar */
+        .navbar {
+            background-color: #AAD9B4;
+            padding: 20px 40px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links li ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #004d00;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #0072BC;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #AAD9B4;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .nav-links li:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            padding: 12px 16px;
+            display: block;
+            white-space: nowrap;
+        }
+
+        /* Mobile Nav */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .hamburger .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: #333;
+            transition: all 0.3s ease-in-out;
+        }
+
+        @media (max-width: 991px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #AAD9B4;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+            }
+        }
+        
+        /* Custom styles for the footer */
+        .main-footer {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(4, 1fr);
+            gap: 30px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            background-color: #d7f0d4;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo p {
+            margin: 0;
+            font-weight: bold;
+            color: #1c6375;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .social-icons img {
+            height: 24px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #007bff;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .newsletter-form input[type="email"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .newsletter-form button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .newsletter-form + p {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .footer-bottom {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-logo-column {
+                grid-column: span 2;
+            }
+        }
+        @media (max-width: 576px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+            .footer-logo-column {
+                grid-column: span 1;
+            }
+        }
+
+        /* Hero Section Styles */
+        .hero-section {
+            background-image: url('https://placehold.co/1920x600/2c5234/white?text=Forest+Background');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .breadcrumbs a, .breadcrumbs span {
+            color: white;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .triangle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .triangle-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px; /* Adjust as needed */
+            margin-bottom: 1rem;
+        }
+
+        .triangle-item {
+            flex-basis: 33.333%;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            margin: 0.5rem;
+        }
+        
+        .title-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .title-group h3 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="CCC-E.html">
+                    <img src="https://placehold.co/100x40/AAD9B4/004d00?text=LOGO" alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="CCC-E.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="About Us.html">About &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="About Us.html">About Us</a></li>
+                        <li><a href="What We Do.html">What We Do</a></li>
+                        <li><a href="Our Team.html">Our Team</a></li>
+                        <li><a href="Our Members.html">Our Members</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="News Page.html">News & Events &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="News Page.html">News</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="resources.html">Resources &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="publications.html">Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <!-- Hamburger for mobile -->
+            <div class="hamburger" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section text-white py-20 px-4 relative">
+            <div class="absolute inset-0 bg-black opacity-40"></div> <!-- Overlay for text readability -->
+            <div class="container mx-auto relative z-10 text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-4">About Us</h1>
+                <!-- Breadcrumbs -->
+                <div class="breadcrumbs text-lg">
+                    <a href="/" class="hover:underline">Home</a>
+                    <span class="mx-2">&gt;</span>
+                    <span>About Us</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our History Section -->
+        <section class="history-section py-12 px-4 bg-white">
+            <div class="container mx-auto max-w-3xl">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Our History</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    The Consortium for Climate Change-Ethiopia (CCC-E) was first conceived in 2009 as a loose network of CSOs under the name Ethiopian Civil Society Network on Climate Change (ECSNCC). The informal network stayed inactive for three years (2012-2014) and in December 2014, it was legally registered as CCC-E with the then Federal Charities and Societies Agency (ChSA) as an Ethiopian Resident and Foreign Charity Consortium.
+                </p>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    In 2019, following the entry into force of a new Civil Societies Proclamation No: 1113/2019, CCCE was re-registered by the Authority for Civil Society Organizations (ACSO) as a local organization bearing registration number 3355.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    The re-vitalization of the hibernated/inactive network and the legalization process of CCC-E would have been unbearable without the generous and unremitted technical and financial support of the Pan African Climate Justice Alliance (PACJA), which is the largest Pan African consortium of more than 2000 organizations from 54 African countries that bring together a diverse membership drawn from various constituencies.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    CCC-E is a Designated National Platform (DNP) of the Pan African Climate Justice Alliance (PACJA) in Ethiopia. Currently CCC-E has more than forty member organizations (national and international NGOs and CBOs) legally registered in Ethiopia and working on issues related to the environment, climate change, and natural resource management. [Forum for Environment (FfE) is one of the founding members and has hosted the network since its inception.]
+                </p>
+            </div>
+        </section>
+        
+        <!-- Vision, Mission & Core Values Section -->
+        <section class="vision-mission-section py-12 px-4 bg-gray-100">
+            <div class="container mx-auto text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Vision, Mission & Core Values</h2>
+                <div class="triangle-container">
+                    <!-- Top of the triangle -->
+                    <div class="triangle-row flex justify-center flex-wrap md:flex-nowrap">
+                        <div class="triangle-item">
+                            <div class="title-group">
+                                <img src="https://placehold.co/50x50/27ae60/ffffff?text=M" alt="Mission Icon" class="h-12 w-12">
+                                <h3 class="text-xl font-bold">MISSION</h3>
+                            </div>
+                            <p class="text-gray-700">
+                                To advance climate change adaptation and mitigation through CSOs by focusing on advocacy, capacity building, and knowledge sharing.
+                            </p>
+                        </div>
+                        <div class="triangle-item">
+                            <div class="title-group">
+                                <img src="https://placehold.co/50x50/3498db/ffffff?text=V" alt="Vision Icon" class="h-12 w-12">
+                                <h3 class="text-xl font-bold">VISION</h3>
+                            </div>
+                            <p class="text-gray-700">
+                                To see climate resilient sustainable development that responds to the needs and interests of the most vulnerable communities of Ethiopia.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Bottom of the triangle -->
+                    <div class="triangle-row">
+                        <div class="triangle-item">
+                            <div class="title-group">
+                                <img src="https://placehold.co/50x50/e67e22/ffffff?text=C" alt="Core Values Icon" class="h-12 w-12">
+                                <h3 class="text-xl font-bold">CORE VALUES</h3>
+                            </div>
+                            <p class="text-gray-700">
+                                A commitment to integrity, inclusivity, transparency, and collaboration in all climate change initiatives.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section py-12 px-4 bg-white">
+            <div class="container mx-auto">
+                <div class="bg-gray-200 h-96 flex items-center justify-center rounded-lg shadow-md">
+                    <span class="text-gray-600 text-xl font-semibold">Ethiopia Map Placeholder</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-top">
+            <!-- Logo & Social -->
+            <div class="footer-column footer-logo-column">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <img src="https://placehold.co/100x40/3498db/ffffff?text=Logo" alt="CCC-E Logo">
+                    </a>
+                    <p>Consortium For Climate Change Ethiopia</p>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><img src="https://placehold.co/24x24/007bff/ffffff?text=FB" alt="Facebook"></a>
+                    <a href="#"><img src="https://placehold.co/24x24/007bff/ffffff?text=TW" alt="Twitter"></a>
+                    <a href="#"><img src="https://placehold.co/24x24/007bff/ffffff?text=LI" alt="LinkedIn"></a>
+                    <a href="#"><img src="https://placehold.co/24x24/007bff/ffffff?text=IG" alt="Instagram"></a>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-column">
+                <h3>Get in Touch</h3>
+                <ul>
+                    <li>Yeka Sub City, Kazanchis to Abuare<br>Addis Ababa, Ethiopia</li>
+                    <li>Email: ccceethiopia2@gmail.com</li>
+                    <li>Phone: (251) 115 52 28 88</li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Publication & Reports</a></li>
+                    <li><a href="#">Digital Forestry Hub</a></li>
+                    <li><a href="#">Research</a></li>
+                    <li><a href="#">Toolkits & Guidelines</a></li>
+                </ul>
+            </div>
+
+            <!-- Company -->
+            <div class="footer-column">
+                <h3>Our Company</h3>
+                <ul>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Opportunities</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">News & Events</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="footer-column">
+                <h3>Join Our Newsletter</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p>We are never a spam!</p>
+            </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="footer-bottom">
+            <p>© Copyright CCC-E 2025. All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Page</title>
+    <style>
+        /* General Layout and Responsiveness */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Removed max-width from .body-container to allow navbar/footer full width */
+        .body-container {
+            /* max-width: 1200px; */ /* Removed */
+            margin: 0 auto;
+            /* padding: 20px; */ /* Padding will be added to specific content sections */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #d7f0d4; /* Correct color from the image */
+            padding: 1rem 0; /* Adjusted padding, removed side padding */
+            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */ /* Removed as it creates a white box effect */
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px; /* Kept max-width for content alignment within navbar */
+            margin: 0 auto;
+            padding: 0 20px; /* Added horizontal padding here */
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #2b5c2d; /* Adjusting link color for better visibility */
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: #007bff;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            z-index: 10;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            padding: 10px 20px;
+            white-space: nowrap;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 4px 0;
+        }
+
+        /* Main Content Sections - now responsible for their own max-width and padding */
+        .main-list-view, .article-view, .more-posts-view {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            /* background-color: #fff; */ /* Removed white background */
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */ /* Removed box shadow */
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            color: #007bff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* Top Posts Grid */
+        .top-posts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .post-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            background-color: #fff; /* Added white background for the cards themselves */
+        }
+        
+        .recent-post-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            background-color: #fff; /* Added white background for the cards themselves */
+        }
+
+        .post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .post-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .post-title {
+            font-size: 1.25rem;
+            margin-top: 0;
+        }
+
+        .post-excerpt {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        /* Consistent button styling */
+        .read-more-button {
+            align-self: flex-start;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .read-more-button:hover {
+            background-color: #0056b3;
+        }
+        
+        .more-posts-button {
+            display: block;
+            margin: 40px auto 0;
+            padding: 15px 30px;
+            background-color: #2b5c2d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .more-posts-button:hover {
+            background-color: #1c421e;
+        }
+
+        /* Recent Posts Grid */
+        .recent-posts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .recent-post-flex {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .recent-post-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .recent-post-title {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .recent-post-excerpt {
+            font-size: 0.8rem;
+            color: #888;
+            margin: 5px 0 0;
+        }
+
+        /* More Posts Section (3x3 Grid) */
+        .all-posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .all-post-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            background-color: #fff; /* Added white background for the cards themselves */
+        }
+
+        .all-post-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .all-post-content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .all-post-title {
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+
+        .all-post-excerpt {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        /* Article View Styling */
+        .article-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .article-title {
+            font-size: 2rem;
+            margin-top: 0;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        /* Footer Styling */
+        .main-footer {
+            background-color: #f5f5f5; /* matches image provided in previous context */
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(4, 1fr); /* 5 columns with first being wider */
+            gap: 30px;
+            /* max-width: 1200px; */ /* Removed to make it full width */
+            margin: 0 auto; /* Keeps content centered if there's a max-width, but here it's full width */
+            padding: 50px 20px; /* Added horizontal padding */
+            background-color: #d7f0d4; /* matches image provided */
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo p {
+            margin: 0;
+            font-weight: bold;
+            color: #1c6375;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .social-icons img {
+            height: 24px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-column ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #007bff;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .newsletter-form input[type="email"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .newsletter-form button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .newsletter-form + p {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .footer-bottom {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            font-size: 0.8rem;
+        }
+        
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #d7f0d4;
+                padding-top: 10px;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+            
+            .top-posts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .recent-posts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .all-posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                padding: 30px 20px; /* Adjust padding for mobile */
+            }
+        }
+    </style>
+</head>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Logo">
+            </a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="CCC-E.html">Home</a></li>
+
+            <li class="dropdown">
+                <a href="about-us.html">About &#9662;</a>
+                <ul class="dropdown-menu">
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="what-we-do.html">What We Do</a></li>
+                    <li><a href="our-team.html">Our Team</a></li>
+                    <li><a href="our-members.html">Our Members</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="news.html">News & Events &#9662;</a>
+                <ul class="dropdown-menu">
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="events.html">Events</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="resources.html">Resources &#9662;</a>
+                <ul class="dropdown-menu">
+                    <li><a href="reports.html">Reports</a></li>
+                    <li><a href="publications.html">Publications</a></li>
+                </ul>
+            </li>
+
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!-- Hamburger for mobile -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+</nav>
+
+
+    <div id="main-list-view" class="main-list-view">
+        <header class="header">
+            <h1 class="header-title">News</h1>
+        </header>
+
+        <div class="top-posts-section">
+            <h2 class="section-title">Top Posts</h2>
+            <div class="top-posts-grid">
+                <div class="post-card">
+                    <img class="post-image" src="https://placehold.co/600x400/87CEEB/ffffff?text=Post+Image" alt="">
+                    <div class="post-content">
+                        <h3 class="post-title">UNIPORT develops pest-resistant maize</h3>
+                        <p class="post-excerpt">Lorem ipsum dolor sit amet...</p>
+                        <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <img class="post-image" src="https://placehold.co/600x400/F08080/ffffff?text=Post+Image" alt="">
+                    <div class="post-content">
+                        <h3 class="post-title">Another great article title here</h3>
+                        <p class="post-excerpt">Lorem ipsum dolor sit amet...</p>
+                        <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <img class="post-image" src="https://placehold.co/600x400/90EE90/ffffff?text=Post+Image" alt="">
+                    <div class="post-content">
+                        <h3 class="post-title">A third post about something interesting</h3>
+                        <p class="post-excerpt">Lorem ipsum dolor sit amet...</p>
+                        <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <img class="post-image" src="https://placehold.co/600x400/FFFF99/000000?text=Post+Image" alt="">
+                    <div class="post-content">
+                        <h3 class="post-title">And a fourth one to fill the space</h3>
+                        <p class="post-excerpt">Lorem ipsum dolor sit amet...</p>
+                        <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-posts-section">
+            <h2 class="section-title">Recent Posts</h2>
+            <div class="recent-posts-grid">
+                <div class="recent-post-card">
+                    <div class="recent-post-flex">
+                        <img class="recent-post-image" src="https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image" alt="">
+                        <div>
+                            <h3 class="recent-post-title">A simple post title</h3>
+                            <p class="recent-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-post-card">
+                    <div class="recent-post-flex">
+                        <img class="recent-post-image" src="https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image" alt="">
+                        <div>
+                            <h3 class="recent-post-title">A simple post title</h3>
+                            <p class="recent-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-post-card">
+                    <div class="recent-post-flex">
+                        <img class="recent-post-image" src="https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image" alt="">
+                        <div>
+                            <h3 class="recent-post-title">A simple post title</h3>
+                            <p class="recent-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-post-card">
+                    <div class="recent-post-flex">
+                        <img class="recent-post-image" src="https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image" alt="">
+                        <div>
+                            <h3 class="recent-post-title">A simple post title</h3>
+                            <p class="recent-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="more-posts-container">
+            <button onclick="showMorePostsView()" class="more-posts-button">More posts &#8594;</button>
+        </div>
+    </div>
+
+    <div id="article-view" class="article-view hidden">
+        <header class="article-header">
+            <button onclick="showListView()" class="back-button">Back to News</button>
+        </header>
+        <div class="article-content">
+            <img class="article-image" src="https://placehold.co/800x600/6A5ACD/ffffff?text=Main+Article+Image" alt="">
+            <div class="article-text-container">
+                <h2 class="article-title">UNIPORT develops pest-resistant maize</h2>
+                <p>Lorem ipsum dolor sit amet...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="more-posts-view" class="more-posts-view hidden">
+        <header class="article-header back-button-container">
+            <button onclick="showListView()" class="back-button">Back to News</button>
+        </header>
+        <h2 class="section-title">All Posts</h2>
+        <div class="all-posts-grid">
+            <div class="all-post-card">
+                <img class="all-post-image" src="https://placehold.co/600x400/87CEEB/ffffff?text=Post+Image" alt="">
+                <div class="all-post-content">
+                    <h3 class="all-post-title">An all-post title 1</h3>
+                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                </div>
+            </div>
+            <div class="all-post-card">
+                <img class="all-post-image" src="https://placehold.co/600x400/F08080/ffffff?text=Post+Image" alt="">
+                <div class="all-post-content">
+                    <h3 class="all-post-title">An all-post title 2</h3>
+                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                </div>
+            </div>
+            <div class="all-post-card">
+                <img class="all-post-image" src="https://placehold.co/600x400/90EE90/ffffff?text=Post+Image" alt="">
+                <div class="all-post-content">
+                    <h3 class="all-post-title">An all-post title 3</h3>
+                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                </div>
+            </div>
+            <div class="all-post-card">
+                <img class="all-post-image" src="https://placehold.co/600x400/A9A9A9/ffffff?text=Post+Image" alt="">
+                <div class="all-post-content">
+                    <h3 class="all-post-title">An all-post title 4</h3>
+                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                </div>
+            </div>
+            <div class="all-post-card">
+                <img class="all-post-image" src="https://placehold.co/600x400/D3D3D3/ffffff?text=Post+Image" alt="">
+                <div class="all-post-content">
+                    <h3 class="all-post-title">An all-post title 5</h3>
+                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                </div>
+            </div>
+            <div class="all-post-card">
+                <img class="all-post-image" src="https://placehold.co/600x400/800000/ffffff?text=Post+Image" alt="">
+                <div class="all-post-content">
+                    <h3 class="all-post-title">An all-post title 6</h3>
+                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                </div>
+            </div>
+            <div class="all-post-card">
+                <img class="all-post-image" src="https://placehold.co/600x400/2F4F4F/ffffff?text=Post+Image" alt="">
+                <div class="all-post-content">
+                    <h3 class="all-post-title">An all-post title 7</h3>
+                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                </div>
+            </div>
+            <div class="all-post-card">
+                <img class="all-post-image" src="https://placehold.co/600x400/008B8B/ffffff?text=Post+Image" alt="">
+                <div class="all-post-content">
+                    <h3 class="all-post-title">An all-post title 8</h3>
+                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                </div>
+            </div>
+            <div class="all-post-card">
+                <img class="all-post-image" src="https://placehold.co/600x400/4B0082/ffffff?text=Post+Image" alt="">
+                <div class="all-post-content">
+                    <h3 class="all-post-title">An all-post title 9</h3>
+                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
+                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="main-footer">
+        <div class="footer-top">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="CCC-E Logo">
+                    <p>Consortium for Climate Change Ethiopia</p>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><img src="images/icons/instagram.png" alt="Instagram"></a>
+                    <a href="#"><img src="images/icons/twitter2.png" alt="Twitter"></a>
+                    <a href="#"><img src="images/icons/facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="images/icons/linkedin.png" alt="LinkedIn"></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Get in Touch</h3>
+                <ul class="contact-info">
+                    <li>Yeka Sub City, ON the way from Kazanchis to Abuare</li>
+                    <li>Addis Ababa, Ethiopia</li>
+                    <li>ccceethiopia2@gmail.com</li>
+                    <li>(251) 115 52 28 88</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resource</h3>
+                <ul>
+                    <li><a href="#">Publication & Reports</a></li>
+                    <li><a href="#">Digital Forestry Information Hub</a></li>
+                    <li><a href="#">Research</a></li>
+                    <li><a href="#">Toolkits & Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Our Company</h3>
+                <ul>
+                    <li><a href="#">project</a></li>
+                    <li><a href="#">Opportunity</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">News & Event</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Join a Newsletter</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email">
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p>We are never a spam!</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© Copyright CCC-E 2025. All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+
+        const mainListView = document.getElementById('main-list-view');
+        const articleView = document.getElementById('article-view');
+        const morePostsView = document.getElementById('more-posts-view');
+
+        function showArticleView() {
+            mainListView.classList.add('hidden');
+            morePostsView.classList.add('hidden');
+            articleView.classList.remove('hidden');
+        }
+
+        function showListView() {
+            mainListView.classList.remove('hidden');
+            articleView.classList.add('hidden');
+            morePostsView.classList.add('hidden');
+        }
+
+        function showMorePostsView() {
+            mainListView.classList.add('hidden');
+            articleView.classList.add('hidden');
+            morePostsView.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
