@@ -3,149 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events - Consortium for Climate Change Ethiopia</title>
-    
+    <title>Our Team</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* General Layout and Responsiveness */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        
+        /* General Body and Main Content Styling */
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
             color: #333;
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
         }
 
-        .hidden {
-            display: none;
+        /* Countdown Timer Styling */
+        .title {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #2c5234;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .countdown-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+        .countdown-unit-container {
+            position: relative;
+            width: 120px;
+            height: 140px;
+            perspective: 200px;
+            font-size: 3rem;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            line-height: 140px;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+        .unit-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #AAD9B4;
+            border-radius: 0.75rem;
+        }
+        .unit-digit {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+        .unit-digit span {
+            display: inline-block;
+            transition: transform 0.5s ease;
         }
 
-        /* NAVBAR Styling */
+        /* Navigation Bar Styling */
         .navbar {
-            background-color: #d7f0d4; /* Consistent color */
-            padding: 1rem 0;
+            background-color: #AAD9B4;
+            padding: 20px 40px;
+            position: relative;
+            z-index: 5;
         }
-
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
         }
-
         .logo img {
-            height: 40px;
+            height: 50px;
         }
-
         .nav-links {
             list-style: none;
+            display: flex;
+            gap: 30px;
             margin: 0;
             padding: 0;
-            display: flex;
-            gap: 20px;
         }
-
-        .nav-links li a {
-            text-decoration: none;
-            color: #2b5c2d;
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            display: block;
-            transition: color 0.3s;
-        }
-
-        .nav-links li a:hover {
-            color: #007bff;
-        }
-
-        /* Dropdown Menu */
-        .dropdown {
+        .nav-links li {
             position: relative;
         }
-
+        .nav-links li ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .nav-links li a {
+            text-decoration: none;
+            color: #004d00;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-links li a:hover {
+            color: #0072BC;
+        }
         .dropdown-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            list-style: none;
-            padding: 10px 0;
-            margin: 0;
+            background-color: #AAD9B4;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 10;
+            border-radius: 0.5rem;
+            overflow: hidden;
         }
-
-        .dropdown:hover .dropdown-menu {
+        .nav-links li:hover .dropdown-menu {
             display: block;
         }
-
         .dropdown-menu li a {
-            padding: 10px 20px;
+            padding: 12px 16px;
+            display: block;
             white-space: nowrap;
         }
-
-        /* Hamburger Menu */
         .hamburger {
             display: none;
-            flex-direction: column;
             cursor: pointer;
         }
-
-        .bar {
+        .hamburger .bar {
+            display: block;
             width: 25px;
             height: 3px;
+            margin: 5px auto;
             background-color: #333;
-            margin: 4px 0;
+            transition: all 0.3s ease-in-out;
+        }
+        @media (max-width: 991px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #AAD9B4;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+            }
         }
 
-        /* Events Section */
-        .events-container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        
-        .events-container h1 {
-            font-size: 2.5rem;
-            color: #025531;
-            margin-bottom: 2rem;
-        }
-
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap; /* Added for responsiveness */
-        }
-
-        .countdown-unit-container {
-            background-color: #AAD9B4;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            min-width: 120px;
-            text-align: center;
-        }
-
-        .unit-digit {
-            font-size: 4rem;
-            font-weight: 700;
-            color: #004d00;
-            line-height: 1;
-        }
-
-        .unit-label {
-            font-size: 1.2rem;
-            color: #004d00;
-            margin-top: 10px;
-        }
-
-        /* FOOTER Styling */
+        /* Footer Styling */
         .main-footer {
             background-color: #f5f5f5;
             font-family: Arial, sans-serif;
@@ -260,71 +295,82 @@
             font-size: 0.8rem;
         }
 
-        /* Mobile Styles */
-        @media (max-width: 768px) {
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            .nav-container {
+                padding: 0 20px;
+            }
             .nav-links {
                 display: none;
                 flex-direction: column;
                 width: 100%;
-                background-color: #d7f0d4;
-                padding-top: 10px;
+                background-color: #AAD9B4;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
-
-            .nav-links.show {
+            .nav-links.active {
                 display: flex;
             }
-
             .hamburger {
-                display: flex;
+                display: block;
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
             }
             
             .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-logo-column {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .triangle-row {
+                flex-direction: column;
+                max-width: 400px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-top {
                 grid-template-columns: 1fr;
-                padding: 30px 20px;
             }
-            
-            .countdown-container {
-                gap: 1rem;
-            }
-            
-            .countdown-unit-container {
-                padding: 1rem;
-                min-width: 80px;
-            }
-            
-            .unit-digit {
-                font-size: 2rem;
-            }
-            
-            .unit-label {
-                font-size: 0.9rem;
+            .footer-logo-column {
+                grid-column: span 1;
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar">
+    <!-- NAVIGATION -->
+       <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <a href="index.html">
-                    <img src="images/logo.png" alt="Logo">
+                <a href="CCC-E.html">
+                    <img src="public/images/logo.png" alt="Logo">
                 </a>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li class="dropdown">
-                    <a href="about.html">About &#9662;</a>
+                <li><a href="CCC-E.html">Home</a></li>
+                <li class="dropdown"><a href="About Us.html">About &#9662;</a>
                     <ul class="dropdown-menu">
-                        <li><a href="about_us.html">About Us</a></li>
-                        <li><a href="what_we_do.html">What We Do</a></li>
-                        <li><a href="our_team.html">Our Team</a></li>
-                        <li><a href="our_members.html">Our Members</a></li>
+                        <li><a href="About Us.html">About Us</a></li>
+                        <li><a href="What We Do.html">What We Do</a></li>
+                        <li><a href="our team.html">Our Team</a></li>
+                        <li><a href="our memebers.html">Our Members</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="news_and_events.html">News & Events &#9662;</a>
+                    <a href="News Page.html">News & Events &#9662;</a>
                     <ul class="dropdown-menu">
-                        <li><a href="news.html">News</a></li>
+                        <li><a href="News Page.html">News</a></li>
                         <li><a href="events.html">Events</a></li>
                     </ul>
                 </li>
@@ -332,11 +378,11 @@
                     <a href="resources.html">Resources &#9662;</a>
                     <ul class="dropdown-menu">
                         <li><a href="reports.html">Reports</a></li>
-                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="resources.html">Resources</a></li>
                     </ul>
                 </li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="Gallery.html">Gallery</a></li>
+                <li><a href="Contact_Us.html">Contact</a></li>
             </ul>
             <div class="hamburger" onclick="toggleMenu()">
                 <div class="bar"></div>
@@ -345,124 +391,119 @@
             </div>
         </div>
     </nav>
-    
-    <div class="events-container">
-        <h1>Coming Soon</h1>
+
+    <!-- Main Content - Replace this section for each new page -->
+    <main>
+        <h1 class="title">Coming Soon</h1>
         <div class="countdown-container">
-            <div id="days-container" class="countdown-unit-container">
-                <div class="unit-digit"><span>00</span></div>
-                <p class="unit-label">Days</p>
-            </div>
             <div id="hours-container" class="countdown-unit-container">
-                <div class="unit-digit"><span>00</span></div>
-                <p class="unit-label">Hours</p>
+                <div class="unit-background"></div>
+                <div id="hours" class="unit-digit"><span>00</span></div>
             </div>
             <div id="minutes-container" class="countdown-unit-container">
-                <div class="unit-digit"><span>00</span></div>
-                <p class="unit-label">Minutes</p>
+                <div class="unit-background"></div>
+                <div id="minutes" class="unit-digit"><span>00</span></div>
             </div>
             <div id="seconds-container" class="countdown-unit-container">
-                <div class="unit-digit"><span>00</span></div>
-                <p class="unit-label">Seconds</p>
+                <div class="unit-background"></div>
+                <div id="seconds" class="unit-digit"><span>00</span></div>
             </div>
         </div>
-    </div>
+    </main>
 
+    <!-- FOOTER -->
     <footer class="main-footer">
         <div class="footer-top">
-            <div class="footer-column">
+            <div class="footer-column footer-logo-column">
                 <div class="footer-logo">
-                    <img src="images/logo.png" alt="CCC-E Logo">
-                    <p>Consortium for Climate Change Ethiopia</p>
+                    <a href="index.html">
+                        <img src="public\images\logo.png" alt="CCC-E Logo">
+                    </a>
+                    <p>Consortium For Climate Change Ethiopia</p>
                 </div>
                 <div class="social-icons">
-                    <a href="#"><img src="images/icons/instagram.png" alt="Instagram"></a>
-                    <a href="#"><img src="images/icons/twitter2.png" alt="Twitter"></a>
-                    <a href="#"><img src="images/icons/facebook.png" alt="Facebook"></a>
-                    <a href="#"><img src="images/icons/linkedin.png" alt="LinkedIn"></a>
+                    <a href="#"><img src="public\images\icons\facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="public\images\icons\twitter.png" alt="Twitter"></a>
+                    <a href="#"><img src="public\images\icons\linkedin.png" alt="LinkedIn"></a>
+                    <a href="#"><img src="public\images\icons\instagram.png" alt="Instagram"></a>
                 </div>
             </div>
+
             <div class="footer-column">
                 <h3>Get in Touch</h3>
-                <ul class="contact-info">
-                    <li>Yeka Sub City, ON the way from Kazanchis to Abuare</li>
-                    <li>Addis Ababa, Ethiopia</li>
-                    <li>ccceethiopia2@gmail.com</li>
-                    <li>(251) 115 52 28 88</li>
+                <ul>
+                    <li>Yeka Sub City, Kazanchis to Abuare<br>Addis Ababa, Ethiopia</li>
+                    <li>Email: ccceethiopia2@gmail.com</li>
+                    <li>Phone: (251) 115 52 28 88</li>
                 </ul>
             </div>
+
             <div class="footer-column">
-                <h3>Resource</h3>
+                <h3>Resources</h3>
                 <ul>
-                    <li><a href="reports.html">Publication & Reports</a></li>
-                    <li><a href="#">Digital Forestry Information Hub</a></li>
+                    <li><a href="#">Publication & Reports</a></li>
+                    <li><a href="#">Digital Forestry Hub</a></li>
                     <li><a href="#">Research</a></li>
                     <li><a href="#">Toolkits & Guidelines</a></li>
                 </ul>
             </div>
+
             <div class="footer-column">
                 <h3>Our Company</h3>
                 <ul>
-                    <li><a href="#">project</a></li>
-                    <li><a href="#">Opportunity</a></li>
-                    <li><a href="our_team.html">Our Team</a></li>
-                    <li><a href="news.html">News & Event</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Opportunities</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">News & Events</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Contact Us</a></li>
                 </ul>
             </div>
+
             <div class="footer-column">
-                <h3>Join a Newsletter</h3>
+                <h3>Join Our Newsletter</h3>
                 <form class="newsletter-form">
-                    <input type="email" placeholder="Your Email">
+                    <input type="email" placeholder="Your Email" required>
                     <button type="submit">Subscribe</button>
                 </form>
                 <p>We are never a spam!</p>
             </div>
         </div>
+
         <div class="footer-bottom">
             <p>© Copyright CCC-E 2025. All Rights Reserved</p>
         </div>
     </footer>
 
+
+
+
+    <!-- JavaScript for Mobile Menu and Countdown -->
     <script>
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('show');
+            navLinks.classList.toggle('active');
         }
 
-        // Set the date we're counting down to
-        const countdownDate = new Date("Dec 31, 2025 23:59:59").getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
             
-            const formattedDays = String(days).padStart(2, '0');
-            const formattedHours = String(hours).padStart(2, '0');
-            const formattedMinutes = String(minutes).padStart(2, '0');
-            const formattedSeconds = String(seconds).padStart(2, '0');
+            // To ensure the update works, we need to select the right elements.
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
 
-            document.querySelector('#days-container .unit-digit span').textContent = formattedDays;
-            document.querySelector('#hours-container .unit-digit span').textContent = formattedHours;
-            document.querySelector('#minutes-container .unit-digit span').textContent = formattedMinutes;
-            document.querySelector('#seconds-container .unit-digit span').textContent = formattedSeconds;
-
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.querySelector('.countdown-container').innerHTML = "<h1>THE EVENT HAS STARTED!</h1>";
-            }
+            hoursEl.textContent = hours;
+            minutesEl.textContent = minutes;
+            secondsEl.textContent = seconds;
         }
-        
-        const countdownInterval = setInterval(updateCountdown, 1000);
 
         document.addEventListener('DOMContentLoaded', () => {
-            updateCountdown();
+            updateClock();
+            setInterval(updateClock, 1000);
         });
     </script>
 </body>

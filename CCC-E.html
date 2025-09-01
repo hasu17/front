@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CCC-E</title>
-    <!-- Importing Poppins font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* All CSS combined and made responsive */
-        
         /* General Reset & Body */
         body, html {
             margin: 0;
@@ -20,11 +17,21 @@
             box-sizing: border-box; 
             font-family: 'Poppins', sans-serif;
             color: #1f2937;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+        
+        * {
+            box-sizing: inherit;
         }
 
-        /* Hero Section based on user's new CSS */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Hero Section */
         .hero-container {
-            background-image: url('https://placehold.co/1920x800/222222/FFFFFF?text=Hero+Image');
+            background-image: url('public/images/bg/bg1.webp');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -54,7 +61,7 @@
             text-align: center;
             animation: fadeInUp 1.2s ease-out forwards, shineStart 1s ease-in-out forwards;
             opacity: 0;
-            padding: 0 20px; /* Add padding for mobile */
+            padding: 0 20px;
             width: 90%;
             max-width: 900px;
         }
@@ -76,7 +83,7 @@
 
         /* Responsive font sizes for h1 and p */
         .hero-text h1 {
-            font-size: clamp(1.5rem, 5vw, 3rem); /* min-font, fluid-font, max-font */
+            font-size: clamp(1.5rem, 5vw, 3rem);
             margin-bottom: 10px;
             animation: 
                 typing-h1 4s steps(30, end) 0.5s forwards, 
@@ -84,7 +91,7 @@
         }
 
         .hero-text p {
-            font-size: clamp(1rem, 3vw, 1.5rem); /* min-font, fluid-font, max-font */
+            font-size: clamp(1rem, 3vw, 1.5rem);
             animation: 
                 typing-p 4s steps(50, end) 5s forwards, 
                 blinkCaret-p 0.75s step-end 5;
@@ -127,9 +134,9 @@
         /* Shining Effect on Hover */
         .hero-text h1:hover, .hero-text p:hover {
             text-shadow: 0 0 10px #fff,
-                         0 0 20px #00ffcc,
-                         0 0 30px #00ffcc,
-                         0 0 40px #00ffcc;
+                        0 0 20px #00ffcc,
+                        0 0 30px #00ffcc,
+                        0 0 40px #00ffcc;
             transition: text-shadow 0.3s ease-in-out;
         }
 
@@ -210,9 +217,20 @@
         }
 
         /* Mobile Nav */
-        .mobile-menu-button {
+        .hamburger {
             display: none;
+            cursor: pointer;
         }
+        
+        .hamburger .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: #333;
+            transition: all 0.3s ease-in-out;
+        }
+
         @media (max-width: 991px) {
             .nav-container {
                 padding: 0 20px;
@@ -231,11 +249,16 @@
             .nav-links.active {
                 display: flex;
             }
-            .mobile-menu-button {
+            .hamburger {
                 display: block;
             }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+            }
         }
-
         /* Who We Are Section */
         .who-we-are-section {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -325,16 +348,16 @@
             padding: 60px 20px;
             border-top: 4px solid #065F46;
             overflow: hidden;
-            white-space: nowrap;
         }
 
         .partner-track {
-            display: inline-block;
+            display: flex;
+            white-space: nowrap;
             animation: seamless-scroll 49s linear infinite;
         }
 
         .partner-logo {
-            display: inline-block;
+            flex-shrink: 0;
             margin: 0 30px;
             height: 80px;
             vertical-align: middle;
@@ -342,7 +365,7 @@
 
         @keyframes seamless-scroll {
             0% { transform: translateX(0%); }
-            100% { transform: translateX(-100%); }
+            100% { transform: translateX(-50%); } /* Changed to 50% for smoother loop */
         }
 
         .partners-section h2 {
@@ -354,48 +377,53 @@
         }
 
         /* Status Section */
-    /* STATUS */
-.status-section {
-  background: #025531;
-  color: #fff;
-  padding: 80px 20px;
-  text-align: center;
-}
+        .status-section {
+            background: #025531;
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
 
-.status-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* always 3 per row */
-  gap: 30px;
-  max-width: 1100px;
-  margin: auto;
-}
+        .status-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+            margin: auto;
+        }
 
-.status-item {
-  background: #2e7d32;
-  padding: 40px 20px;
-  border-radius: 10px;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease;
-}
+        .status-item {
+            background: #2e7d32;
+            padding: 40px 20px;
+            border-radius: 10px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
 
-.status-item:hover {
-  transform: translateY(-8px);
-}
+        .status-item:hover {
+            transform: translateY(-8px);
+        }
 
-.status-item h3 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
+        .status-item h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
-.status-item p {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
+        .status-item p {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 576px) {
+            .status-container {
+                grid-template-columns: 1fr;
+            }
+        }
 
         /* Recent News Section */
         .recent-news {
@@ -532,8 +560,7 @@
         }
 
         /* Footer */
-       /* Footer Section */
- .main-footer {
+        .main-footer {
             background-color: #f5f5f5;
             font-family: Arial, sans-serif;
             color: #333;
@@ -647,81 +674,71 @@
             font-size: 0.8rem;
         }
 
-/* Responsive */
-@media (max-width: 991px) {
-    .footer-content-wrapper {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .footer-logo-column {
-        grid-column: span 2;
-    }
-}
-@media (max-width: 576px) {
-    .footer-content-wrapper {
-        grid-template-columns: 1fr;
-    }
-    .footer-logo-column {
-        grid-column: span 1;
-    }
-}
+        /* Responsive */
+        @media (max-width: 991px) {
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-logo-column {
+                grid-column: span 2;
+            }
+        }
 
+        @media (max-width: 576px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+            .footer-logo-column {
+                grid-column: span 1;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <!-- NAVIGATION from original file -->
-    <!-- NAVIGATION -->
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo">
-            <a href="index.html">
-                <img src="images/logo.png" alt="Logo">
-            </a>
+<!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="CCC-E.html">
+                    <img src="public/images/logo.png" alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="CCC-E.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="About Us.html">About &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="About Us.html">About Us</a></li>
+                        <li><a href="What We Do.html">What We Do</a></li>
+                        <li><a href="our team.html">Our Team</a></li>
+                        <li><a href="our memebers.html">Our Members</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="News Page.html">News & Events &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="News Page.html">News</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="resources.html">Resources &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </li>
+                <li><a href="Gallery.html">Gallery</a></li>
+                <li><a href="Contact_Us.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
         </div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="CCC-E.html">Home</a></li>
+    </nav>
 
-            <li class="dropdown">
-                <a href="About Us.html">About &#9662;</a>
-                <ul class="dropdown-menu">
-                    <li><a href="About Us.html">About Us</a></li>
-                    <li><a href="What We Do.html">What We Do</a></li>
-                    <li><a href="Our Team.html">Our Team</a></li>
-                    <li><a href="Our Members.html">Our Members</a></li>
-                </ul>
-            </li>
-
-            <li class="dropdown">
-                <a href="News Page.html">News & Events &#9662;</a>
-                <ul class="dropdown-menu">
-                    <li><a href="News Page.html">News</a></li>
-                    <li><a href="events.html">Events</a></li>
-                </ul>
-            </li>
-
-            <li class="dropdown">
-                <a href="resources.html">Resources &#9662;</a>
-                <ul class="dropdown-menu">
-                    <li><a href="reports.html">Reports</a></li>
-                    <li><a href="publications.html">Publications</a></li>
-                </ul>
-            </li>
-
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-
-        <!-- Hamburger for mobile -->
-        <div class="hamburger" onclick="toggleMenu()">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-    </div>
-</nav>
-
-
-    <!-- Hero Section with Typewriter Effect -->
     <div class="hero-container">
         <div class="overlay"></div>
         <div class="hero-text">
@@ -730,15 +747,13 @@
         </div>
     </div>
 
-    <!-- Main Content Sections -->
     <main class="main-content">
-        <!-- Who We Are Section -->
         <section class="who-we-are-section">
             <div class="container">
                 <h2>Who We Are</h2>
                 <div class="content-row">
                     <div class="who-we-are-logo">
-                        <img src="https://placehold.co/180x180/025531/FFFFFF?text=Logo" alt="CCC-E Logo">
+                        <img src="public/images/logo.png" alt="CCC-E Logo">
                     </div>
                     <div class="who-we-are-text-column">
                         <p>
@@ -755,61 +770,55 @@
             </div>
         </section>
 
-        <!-- Our Partners Section -->
         <section class="partners-section">
             <h2>Our Partners</h2>
             <div class="partner-track">
-                <img src="https://placehold.co/150x80?text=Partner+1" alt="Partner Logo 1" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+2" alt="Partner Logo 2" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+3" alt="Partner Logo 3" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+4" alt="Partner Logo 4" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+5" alt="Partner Logo 5" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+6" alt="Partner Logo 6" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+7" alt="Partner Logo 7" class="partner-logo">
-                <!-- Duplicate logos for seamless loop -->
-                <img src="https://placehold.co/150x80?text=Partner+1" alt="Partner Logo 1" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+2" alt="Partner Logo 2" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+3" alt="Partner Logo 3" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+4" alt="Partner Logo 4" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+5" alt="Partner Logo 5" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+6" alt="Partner Logo 6" class="partner-logo">
-                <img src="https://placehold.co/150x80?text=Partner+7" alt="Partner Logo 7" class="partner-logo">
+                <img src="public/images/partners/logo1.png" alt="Partner Logo 1" class="partner-logo">
+                <img src="public/images/partners/logo2.png" alt="Partner Logo 2" class="partner-logo">
+                <img src="public/images/partners/logo3.png" alt="Partner Logo 3" class="partner-logo">
+                <img src="public/images/partners/logo4.png" alt="Partner Logo 4" class="partner-logo">
+                <img src="public/images/partners/logo5.png" alt="Partner Logo 5" class="partner-logo">
+                <img src="public/images/partners/logo6.png" alt="Partner Logo 6" class="partner-logo">
+                <img src="public/images/partners/logo7.png" alt="Partner Logo 7" class="partner-logo">
+                <img src="public/images/partners/logo1.png" alt="Partner Logo 8" class="partner-logo">
+                <img src="public/images/partners/logo2.png" alt="Partner Logo 9" class="partner-logo">
+                <img src="public/images/partners/logo3.png" alt="Partner Logo 10" class="partner-logo">
+                <img src="public/images/partners/logo4.png" alt="Partner Logo 11" class="partner-logo">
+                <img src="public/images/partners/logo5.png" alt="Partner Logo 5" class="partner-logo">
+                <img src="public/images/partners/logo6.png" alt="Partner Logo 6" class="partner-logo">
+                <img src="public/images/partners/logo7.png" alt="Partner Logo 7" class="partner-logo">
             </div>
         </section>
 
-        <!-- Status Bar Section -->
-     <!-- STATUS -->
-<section class="status-section">
-  <div class="status-container">
-    <div class="status-item">
-      <h3 class="counter" data-target="10000">0</h3>
-      <p>Tree Plant</p>
-    </div>
-    <div class="status-item">
-      <h3 class="counter" data-target="5000">0</h3>
-      <p>Beneficiaries</p>
-    </div>
-    <div class="status-item">
-      <h3 class="counter" data-target="10">0</h3>
-      <p>Projects</p>
-    </div>
-    <div class="status-item">
-      <h3 class="counter" data-target="15">0</h3>
-      <p>Regions</p>
-    </div>
-    <div class="status-item">
-      <h3 class="counter" data-target="41">0</h3>
-      <p>Members</p>
-    </div>
-    <div class="status-item">
-      <h3 class="counter" data-target="50">0</h3>
-      <p>Woreda/Zone</p>
-    </div>
-  </div>
-</section>
+        <section class="status-section">
+            <div class="status-container">
+                <div class="status-item">
+                    <h3 class="counter" data-target="10000">0</h3>
+                    <p>Tree Plant</p>
+                </div>
+                <div class="status-item">
+                    <h3 class="counter" data-target="5000">0</h3>
+                    <p>Beneficiaries</p>
+                </div>
+                <div class="status-item">
+                    <h3 class="counter" data-target="10">0</h3>
+                    <p>Projects</p>
+                </div>
+                <div class="status-item">
+                    <h3 class="counter" data-target="15">0</h3>
+                    <p>Regions</p>
+                </div>
+                <div class="status-item">
+                    <h3 class="counter" data-target="41">0</h3>
+                    <p>Members</p>
+                </div>
+                <div class="status-item">
+                    <h3 class="counter" data-target="50">0</h3>
+                    <p>Woreda/Zone</p>
+                </div>
+            </div>
+        </section>
 
-
-        <!-- Recent News Section -->
         <section class="recent-news">
             <h2>Recent News</h2>
             <div class="news-cards">
@@ -831,7 +840,6 @@
             </div>
         </section>
         
-        <!-- Contact Section -->
         <section class="contact-section">
             <div class="contact-form-container">
                 <div class="contact-form-wrapper">
@@ -852,121 +860,112 @@
         </section>
     </main>
     
-    <!-- Footer from original file -->
-     <footer class="main-footer">
-    <div class="footer-top">
-        <!-- Logo & Social -->
-        <div class="footer-column footer-logo-column">
-            <div class="footer-logo">
-                <a href="index.html">
-                    <img src="images/logo.png" alt="CCC-E Logo">
-                </a>
-                <p>Consortium For Climate Change Ethiopia</p>
+    <footer class="main-footer">
+        <div class="footer-top">
+            <div class="footer-column footer-logo-column">
+                <div class="footer-logo">
+                    <a href="index.html">
+                        <img src="public\images\logo.png" alt="CCC-E Logo">
+                    </a>
+                    <p>Consortium For Climate Change Ethiopia</p>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><img src="public\images\icons\facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="public\images\icons\twitter.png" alt="Twitter"></a>
+                    <a href="#"><img src="public\images\icons\linkedin.png" alt="LinkedIn"></a>
+                    <a href="#"><img src="public\images\icons\instagram.png" alt="Instagram"></a>
+                </div>
             </div>
-            <div class="social-icons">
-                <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
-                <a href="#"><img src="images/twitter.png" alt="Twitter"></a>
-                <a href="#"><img src="images/linkedin.png" alt="LinkedIn"></a>
-                <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
+
+            <div class="footer-column">
+                <h3>Get in Touch</h3>
+                <ul>
+                    <li>Yeka Sub City, Kazanchis to Abuare<br>Addis Ababa, Ethiopia</li>
+                    <li>Email: ccceethiopia2@gmail.com</li>
+                    <li>Phone: (251) 115 52 28 88</li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Publication & Reports</a></li>
+                    <li><a href="#">Digital Forestry Hub</a></li>
+                    <li><a href="#">Research</a></li>
+                    <li><a href="#">Toolkits & Guidelines</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Our Company</h3>
+                <ul>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Opportunities</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">News & Events</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Join Our Newsletter</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p>We are never a spam!</p>
             </div>
         </div>
 
-        <!-- Contact Info -->
-        <div class="footer-column">
-            <h3>Get in Touch</h3>
-            <ul>
-                <li>Yeka Sub City, Kazanchis to Abuare<br>Addis Ababa, Ethiopia</li>
-                <li>Email: ccceethiopia2@gmail.com</li>
-                <li>Phone: (251) 115 52 28 88</li>
-            </ul>
+        <div class="footer-bottom">
+            <p>© Copyright CCC-E 2025. All Rights Reserved</p>
         </div>
+    </footer>
 
-        <!-- Resources -->
-        <div class="footer-column">
-            <h3>Resources</h3>
-            <ul>
-                <li><a href="#">Publication & Reports</a></li>
-                <li><a href="#">Digital Forestry Hub</a></li>
-                <li><a href="#">Research</a></li>
-                <li><a href="#">Toolkits & Guidelines</a></li>
-            </ul>
-        </div>
+    <script>
+        // ✅ Mobile menu toggle fix
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
 
-        <!-- Company -->
-        <div class="footer-column">
-            <h3>Our Company</h3>
-            <ul>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Opportunities</a></li>
-                <li><a href="#">Our Team</a></li>
-                <li><a href="#">News & Events</a></li>
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
+        // ✅ Counter animation with + sign
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll(".counter");
 
-        <!-- Newsletter -->
-        <div class="footer-column">
-            <h3>Join Our Newsletter</h3>
-            <form class="newsletter-form">
-                <input type="email" placeholder="Your Email" required>
-                <button type="submit">Subscribe</button>
-            </form>
-            <p>We are never a spam!</p>
-        </div>
-    </div>
+            const animateCounter = (counter) => {
+                counter.innerText = "+0";
+                const updateCounter = () => {
+                    const target = +counter.getAttribute("data-target");
+                    const current = +counter.innerText.replace("+", "");
+                    const increment = target / 100; // adjust speed
 
-    <!-- Bottom -->
-    <div class="footer-bottom">
-        <p>© Copyright CCC-E 2025. All Rights Reserved</p>
-    </div>
-</footer>
+                    if (current < target) {
+                        counter.innerText = `+${Math.ceil(current + increment)}`;
+                        setTimeout(updateCounter, 30);
+                    } else {
+                        counter.innerText = `+${target}`;
+                    }
+                };
+                updateCounter();
+            };
 
+            // Use IntersectionObserver so counters animate when scrolled into view
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target); // run only once
+                    }
+                });
+            }, { threshold: 0.5 });
 
-    <!-- JavaScript for Mobile Menu and Counter Animation -->
-   <script>
-    // ✅ Mobile menu toggle fix
-    function toggleMenu() {
-        const navLinks = document.getElementById('navLinks');
-        navLinks.classList.toggle('active');
-    }
-
-    // ✅ Counter animation with + sign
-    document.addEventListener("DOMContentLoaded", () => {
-      const counters = document.querySelectorAll(".counter");
-
-      const animateCounter = (counter) => {
-        counter.innerText = "+0";
-        const updateCounter = () => {
-          const target = +counter.getAttribute("data-target");
-          const current = +counter.innerText.replace("+", "");
-          const increment = target / 100; // adjust speed
-
-          if (current < target) {
-            counter.innerText = `+${Math.ceil(current + increment)}`;
-            setTimeout(updateCounter, 30);
-          } else {
-            counter.innerText = `+${target}`;
-          }
-        };
-        updateCounter();
-      };
-
-      // Use IntersectionObserver so counters animate when scrolled into view
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            animateCounter(entry.target);
-            observer.unobserve(entry.target); // run only once
-          }
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
         });
-      }, { threshold: 0.5 });
-
-      counters.forEach(counter => {
-        observer.observe(counter);
-      });
-    });
-</script>
+    </script>
 
 </body>
 </html>

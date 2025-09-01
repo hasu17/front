@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Template</title>
+    <title>Gallery</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -183,80 +183,91 @@
         /* Footer Styling */
         .main-footer {
             background-color: #f5f5f5;
-            font-family: 'Poppins', sans-serif;
+            font-family: Arial, sans-serif;
             color: #333;
-            margin-top: auto;
         }
-        .footer-content-wrapper {
+
+        .footer-top {
             display: grid;
             grid-template-columns: 1.5fr repeat(4, 1fr);
             gap: 30px;
-            max-width: 1200px;
             margin: 0 auto;
             padding: 50px 20px;
             background-color: #d7f0d4;
         }
+
         .footer-column {
             display: flex;
             flex-direction: column;
         }
-        .footer-logo-column {
+
+        .footer-logo {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
+
         .footer-logo img {
             height: 50px;
             margin-bottom: 10px;
         }
+
         .footer-logo p {
             margin: 0;
             font-weight: bold;
             color: #1c6375;
-            white-space: nowrap;
         }
+        
         .footer-column h3 {
             font-size: 1.2rem;
             margin-top: 0;
             margin-bottom: 20px;
         }
+
         .social-icons {
             display: flex;
             gap: 10px;
             margin-top: 20px;
         }
+
         .social-icons img {
             height: 24px;
-            width: 24px;
         }
-        .footer-links, .contact-info {
+
+        .footer-column ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-        .footer-links li, .contact-info li {
+
+        .footer-column ul li {
             margin-bottom: 8px;
         }
-        .footer-links li a {
+
+        .footer-column ul li a {
             text-decoration: none;
             color: #333;
             font-size: 0.9rem;
             transition: color 0.3s;
         }
-        .footer-links li a:hover {
+
+        .footer-column ul li a:hover {
             color: #007bff;
         }
+
         .newsletter-form {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
+
         .newsletter-form input[type="email"] {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 100%;
         }
+
         .newsletter-form button {
             padding: 10px;
             background-color: #007bff;
@@ -265,31 +276,70 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        
         .newsletter-form + p {
             font-size: 0.8rem;
             color: #666;
             margin-top: 10px;
         }
+
         .footer-bottom {
             background-color: #333;
             color: #fff;
             padding: 20px;
             text-align: center;
         }
+
         .footer-bottom p {
             margin: 0;
             font-size: 0.8rem;
         }
+
+        /* Responsive Styles */
         @media (max-width: 991px) {
-            .footer-content-wrapper {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #AAD9B4;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+            }
+            
+            .footer-top {
                 grid-template-columns: repeat(2, 1fr);
             }
             .footer-logo-column {
                 grid-column: span 2;
             }
         }
+
+        @media (max-width: 768px) {
+            .triangle-row {
+                flex-direction: column;
+                max-width: 400px;
+            }
+        }
+        
         @media (max-width: 576px) {
-            .footer-content-wrapper {
+            .footer-top {
                 grid-template-columns: 1fr;
             }
             .footer-logo-column {
@@ -300,42 +350,40 @@
 </head>
 <body>
     <!-- NAVIGATION -->
-    <nav class="navbar">
+       <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <a href="/">
-                    <img src="https://placehold.co/100x40/AAD9B4/004d00?text=LOGO" alt="Logo">
+                <a href="CCC-E.html">
+                    <img src="public/images/logo.png" alt="Logo">
                 </a>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="/">Home</a></li>
-                <li class="dropdown">
-                    <a href="/about">About &#9662;</a>
+                <li><a href="CCC-E.html">Home</a></li>
+                <li class="dropdown"><a href="About Us.html">About &#9662;</a>
                     <ul class="dropdown-menu">
-                        <li><a href="/about/about_us">About Us</a></li>
-                        <li><a href="/about/what-we-do">What We Do</a></li>
-                        <li><a href="/about/our-team">Our Team</a></li>
-                        <li><a href="/about/our-members">Our Members</a></li>
+                        <li><a href="About Us.html">About Us</a></li>
+                        <li><a href="What We Do.html">What We Do</a></li>
+                        <li><a href="our team.html">Our Team</a></li>
+                        <li><a href="our memebers.html">Our Members</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="/news-and-events">News & Events &#9662;</a>
+                    <a href="News Page.html">News & Events &#9662;</a>
                     <ul class="dropdown-menu">
-                        <li><a href="/news">News</a></li>
-                        <li><a href="/events">Events</a></li>
+                        <li><a href="News Page.html">News</a></li>
+                        <li><a href="events.html">Events</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="/resources">Resources &#9662;</a>
+                    <a href="resources.html">Resources &#9662;</a>
                     <ul class="dropdown-menu">
-                        <li><a href="/resources/reports">Reports</a></li>
-                        <li><a href="/resources/publications">Publications</a></li>
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="resources.html">Resources</a></li>
                     </ul>
                 </li>
-                <li><a href="/gallery">Gallery</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="Contact_Us.html">Contact</a></li>
             </ul>
-            <!-- Hamburger -->
             <div class="hamburger" onclick="toggleMenu()">
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -365,60 +413,70 @@
 
     <!-- FOOTER -->
     <footer class="main-footer">
-        <div class="footer-content-wrapper">
+        <div class="footer-top">
             <div class="footer-column footer-logo-column">
                 <div class="footer-logo">
-                    <img src="https://placehold.co/100x40/3498db/ffffff?text=Logo" alt="CCC-E Logo">
+                    <a href="index.html">
+                        <img src="public\images\logo.png" alt="CCC-E Logo">
+                    </a>
                     <p>Consortium For Climate Change Ethiopia</p>
                 </div>
                 <div class="social-icons">
-                    <a href="#"><img src="https://placehold.co/24x24/3b5998/ffffff?text=FB" alt="Facebook"></a>
-                    <a href="#"><img src="https://placehold.co/24x24/55acee/ffffff?text=TW" alt="Twitter"></a>
-                    <a href="#"><img src="https://placehold.co/24x24/0077b5/ffffff?text=LI" alt="LinkedIn"></a>
-                    <a href="#"><img src="https://placehold.co/24x24/e95950/ffffff?text=IG" alt="Instagram"></a>
+                    <a href="#"><img src="public\images\icons\facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="public\images\icons\twitter.png" alt="Twitter"></a>
+                    <a href="#"><img src="public\images\icons\linkedin.png" alt="LinkedIn"></a>
+                    <a href="#"><img src="public\images\icons\instagram.png" alt="Instagram"></a>
                 </div>
             </div>
+
             <div class="footer-column">
                 <h3>Get in Touch</h3>
-                <ul class="contact-info">
-                    <li>Yeka Sub City, ON the way<br>from Kazanchis to Abuare<br>Addis Ababa, Ethiopia</li>
-                    <li>ccceethiopia2@gmail.com</li>
-                    <li>(251) 115 52 28 88</li>
+                <ul>
+                    <li>Yeka Sub City, Kazanchis to Abuare<br>Addis Ababa, Ethiopia</li>
+                    <li>Email: ccceethiopia2@gmail.com</li>
+                    <li>Phone: (251) 115 52 28 88</li>
                 </ul>
             </div>
+
             <div class="footer-column">
-                <h3>Resource</h3>
-                <ul class="footer-links">
+                <h3>Resources</h3>
+                <ul>
                     <li><a href="#">Publication & Reports</a></li>
-                    <li><a href="#">Digital Forestry Information Hub</a></li>
+                    <li><a href="#">Digital Forestry Hub</a></li>
                     <li><a href="#">Research</a></li>
                     <li><a href="#">Toolkits & Guidelines</a></li>
                 </ul>
             </div>
+
             <div class="footer-column">
                 <h3>Our Company</h3>
-                <ul class="footer-links">
-                    <li><a href="#">project</a></li>
-                    <li><a href="#">Opportunity</a></li>
+                <ul>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Opportunities</a></li>
                     <li><a href="#">Our Team</a></li>
-                    <li><a href="#">News & Event</a></li>
+                    <li><a href="#">News & Events</a></li>
                     <li><a href="#">Gallery</a></li>
                     <li><a href="#">Contact Us</a></li>
                 </ul>
             </div>
-            <div class="footer-column footer-newsletter-column">
-                <h3>Join a Newsletter</h3>
+
+            <div class="footer-column">
+                <h3>Join Our Newsletter</h3>
                 <form class="newsletter-form">
-                    <input type="email" placeholder="Your Email">
+                    <input type="email" placeholder="Your Email" required>
                     <button type="submit">Subscribe</button>
                 </form>
                 <p>We are never a spam!</p>
             </div>
         </div>
+
         <div class="footer-bottom">
             <p>© Copyright CCC-E 2025. All Rights Reserved</p>
         </div>
     </footer>
+
+
+
 
     <!-- JavaScript for Mobile Menu and Countdown -->
     <script>

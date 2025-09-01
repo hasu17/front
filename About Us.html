@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
     
-    <!-- Loading Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
@@ -16,7 +15,14 @@
             color: #333;
         }
 
-        /* Custom styles for the navigation bar */
+        /* General Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar Styles */
         .navbar {
             background-color: #AAD9B4;
             padding: 20px 40px;
@@ -128,8 +134,58 @@
                 background-color: transparent;
             }
         }
-        
-        /* Custom styles for the footer */
+        /* Hero Section Styles */
+        .hero-section {
+            background-image: url('public/images/bg/bg2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .breadcrumbs a, .breadcrumbs span {
+            color: white;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Vision, Mission, Values Section Styles */
+        .triangle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .triangle-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+            gap: 1rem;
+        }
+
+        .triangle-item {
+            flex: 1;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+
+        .title-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .title-group h3 {
+            margin: 0;
+        }
+
+        /* Footer Styles */
         .main-footer {
             background-color: #f5f5f5;
             font-family: Arial, sans-serif;
@@ -244,8 +300,34 @@
             font-size: 0.8rem;
         }
 
-        /* Responsive */
+        /* Responsive Styles */
         @media (max-width: 991px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #AAD9B4;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+            }
+            
             .footer-top {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -253,6 +335,14 @@
                 grid-column: span 2;
             }
         }
+
+        @media (max-width: 768px) {
+            .triangle-row {
+                flex-direction: column;
+                max-width: 400px;
+            }
+        }
+        
         @media (max-width: 576px) {
             .footer-top {
                 grid-template-columns: 1fr;
@@ -261,77 +351,25 @@
                 grid-column: span 1;
             }
         }
-
-        /* Hero Section Styles */
-        .hero-section {
-            background-image: url('https://placehold.co/1920x600/2c5234/white?text=Forest+Background');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
-        .breadcrumbs a, .breadcrumbs span {
-            color: white;
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .triangle-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .triangle-row {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            max-width: 800px; /* Adjust as needed */
-            margin-bottom: 1rem;
-        }
-
-        .triangle-item {
-            flex-basis: 33.333%;
-            padding: 2rem;
-            background-color: #fff;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            text-align: center;
-            margin: 0.5rem;
-        }
-        
-        .title-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .title-group h3 {
-            margin: 0;
-        }
     </style>
 </head>
 <body>
     
-    <!-- NAVIGATION -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <a href="CCC-E.html">
-                    <img src="https://placehold.co/100x40/AAD9B4/004d00?text=LOGO" alt="Logo">
+                    <img src="public/images/logo.png" alt="Logo">
                 </a>
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="CCC-E.html">Home</a></li>
-                <li class="dropdown">
-                    <a href="About Us.html">About &#9662;</a>
+                <li class="dropdown"><a href="About Us.html">About &#9662;</a>
                     <ul class="dropdown-menu">
                         <li><a href="About Us.html">About Us</a></li>
                         <li><a href="What We Do.html">What We Do</a></li>
-                        <li><a href="Our Team.html">Our Team</a></li>
-                        <li><a href="Our Members.html">Our Members</a></li>
+                        <li><a href="our team.html">Our Team</a></li>
+                        <li><a href="our memebers.html">Our Members</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -345,13 +383,12 @@
                     <a href="resources.html">Resources &#9662;</a>
                     <ul class="dropdown-menu">
                         <li><a href="reports.html">Reports</a></li>
-                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="resources.html">Resources</a></li>
                     </ul>
                 </li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="Gallery.html">Gallery</a></li>
+                <li><a href="Contact_Us.html">Contact</a></li>
             </ul>
-            <!-- Hamburger for mobile -->
             <div class="hamburger" onclick="toggleMenu()">
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -359,23 +396,18 @@
             </div>
         </div>
     </nav>
-    
     <main>
-        <!-- Hero Section -->
         <section class="hero-section text-white py-20 px-4 relative">
-            <div class="absolute inset-0 bg-black opacity-40"></div> <!-- Overlay for text readability -->
-            <div class="container mx-auto relative z-10 text-center">
+            <div class="absolute inset-0 bg-black opacity-40"></div> <div class="container mx-auto relative z-10 text-center">
                 <h1 class="text-5xl md:text-6xl font-bold mb-4">About Us</h1>
-                <!-- Breadcrumbs -->
                 <div class="breadcrumbs text-lg">
-                    <a href="/" class="hover:underline">Home</a>
+                    <a href="CCC-E.html" class="hover:underline">Home</a>
                     <span class="mx-2">&gt;</span>
                     <span>About Us</span>
                 </div>
             </div>
         </section>
 
-        <!-- Our History Section -->
         <section class="history-section py-12 px-4 bg-white">
             <div class="container mx-auto max-w-3xl">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Our History</h2>
@@ -394,13 +426,11 @@
             </div>
         </section>
         
-        <!-- Vision, Mission & Core Values Section -->
         <section class="vision-mission-section py-12 px-4 bg-gray-100">
             <div class="container mx-auto text-center">
                 <h2 class="text-3xl font-bold text-gray-800 mb-8">Vision, Mission & Core Values</h2>
                 <div class="triangle-container">
-                    <!-- Top of the triangle -->
-                    <div class="triangle-row flex justify-center flex-wrap md:flex-nowrap">
+                    <div class="triangle-row">
                         <div class="triangle-item">
                             <div class="title-group">
                                 <img src="https://placehold.co/50x50/27ae60/ffffff?text=M" alt="Mission Icon" class="h-12 w-12">
@@ -420,7 +450,6 @@
                             </p>
                         </div>
                     </div>
-                    <!-- Bottom of the triangle -->
                     <div class="triangle-row">
                         <div class="triangle-item">
                             <div class="title-group">
@@ -436,7 +465,6 @@
             </div>
         </section>
 
-        <!-- Map Section -->
         <section class="map-section py-12 px-4 bg-white">
             <div class="container mx-auto">
                 <div class="bg-gray-200 h-96 flex items-center justify-center rounded-lg shadow-md">
@@ -446,26 +474,23 @@
         </section>
     </main>
     
-    <!-- FOOTER -->
     <footer class="main-footer">
         <div class="footer-top">
-            <!-- Logo & Social -->
             <div class="footer-column footer-logo-column">
                 <div class="footer-logo">
                     <a href="index.html">
-                        <img src="https://placehold.co/100x40/3498db/ffffff?text=Logo" alt="CCC-E Logo">
+                        <img src="public\images\logo.png" alt="CCC-E Logo">
                     </a>
                     <p>Consortium For Climate Change Ethiopia</p>
                 </div>
                 <div class="social-icons">
-                    <a href="#"><img src="https://placehold.co/24x24/007bff/ffffff?text=FB" alt="Facebook"></a>
-                    <a href="#"><img src="https://placehold.co/24x24/007bff/ffffff?text=TW" alt="Twitter"></a>
-                    <a href="#"><img src="https://placehold.co/24x24/007bff/ffffff?text=LI" alt="LinkedIn"></a>
-                    <a href="#"><img src="https://placehold.co/24x24/007bff/ffffff?text=IG" alt="Instagram"></a>
+                    <a href="#"><img src="public\images\icons\facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="public\images\icons\twitter.png" alt="Twitter"></a>
+                    <a href="#"><img src="public\images\icons\linkedin.png" alt="LinkedIn"></a>
+                    <a href="#"><img src="public\images\icons\instagram.png" alt="Instagram"></a>
                 </div>
             </div>
 
-            <!-- Contact Info -->
             <div class="footer-column">
                 <h3>Get in Touch</h3>
                 <ul>
@@ -475,7 +500,6 @@
                 </ul>
             </div>
 
-            <!-- Resources -->
             <div class="footer-column">
                 <h3>Resources</h3>
                 <ul>
@@ -486,7 +510,6 @@
                 </ul>
             </div>
 
-            <!-- Company -->
             <div class="footer-column">
                 <h3>Our Company</h3>
                 <ul>
@@ -499,7 +522,6 @@
                 </ul>
             </div>
 
-            <!-- Newsletter -->
             <div class="footer-column">
                 <h3>Join Our Newsletter</h3>
                 <form class="newsletter-form">
@@ -510,7 +532,6 @@
             </div>
         </div>
 
-        <!-- Bottom -->
         <div class="footer-bottom">
             <p>© Copyright CCC-E 2025. All Rights Reserved</p>
         </div>

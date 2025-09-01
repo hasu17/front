@@ -27,48 +27,51 @@
 
         /* Navbar Styling */
         .navbar {
-            background-color: #d7f0d4; /* Correct color from the image */
-            padding: 1rem 0; /* Adjusted padding, removed side padding */
-            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */ /* Removed as it creates a white box effect */
+            background-color: #AAD9B4;
+            padding: 20px 40px;
+            position: relative;
+            z-index: 5;
         }
 
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px; /* Kept max-width for content alignment within navbar */
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px; /* Added horizontal padding here */
         }
 
         .logo img {
-            height: 40px;
+            height: 50px;
         }
 
         .nav-links {
             list-style: none;
+            display: flex;
+            gap: 30px;
             margin: 0;
             padding: 0;
-            display: flex;
-            gap: 20px;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links li ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
         }
 
         .nav-links li a {
             text-decoration: none;
-            color: #2b5c2d; /* Adjusting link color for better visibility */
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            display: block;
-            transition: color 0.3s;
+            color: #004d00;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         .nav-links li a:hover {
-            color: #007bff;
-        }
-
-        /* Dropdown Menu */
-        .dropdown {
-            position: relative;
+            color: #0072BC;
         }
 
         .dropdown-menu {
@@ -76,35 +79,63 @@
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            list-style: none;
-            padding: 10px 0;
-            margin: 0;
+            background-color: #AAD9B4;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 10;
         }
-
-        .dropdown:hover .dropdown-menu {
+        .nav-links li:hover .dropdown-menu {
             display: block;
         }
 
         .dropdown-menu li a {
-            padding: 10px 20px;
+            padding: 12px 16px;
+            display: block;
             white-space: nowrap;
         }
 
-        /* Hamburger Menu */
+        /* Mobile Nav */
         .hamburger {
             display: none;
-            flex-direction: column;
             cursor: pointer;
         }
-
-        .bar {
+        
+        .hamburger .bar {
+            display: block;
             width: 25px;
             height: 3px;
+            margin: 5px auto;
             background-color: #333;
-            margin: 4px 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        @media (max-width: 991px) {
+            .nav-container {
+                padding: 0 20px;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: #AAD9B4;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: block;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: transparent;
+            }
         }
 
         /* Main Content Sections - now responsible for their own max-width and padding */
@@ -486,55 +517,49 @@
         }
     </style>
 </head>
+<!-- Navigation bar -->
 <nav class="navbar">
-    <div class="nav-container">
-        <div class="logo">
-            <a href="index.html">
-                <img src="images/logo.png" alt="Logo">
-            </a>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="CCC-E.html">
+                    <img src="public/images/logo.png" alt="Logo">
+                </a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="CCC-E.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="About Us.html">About &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="About Us.html">About Us</a></li>
+                        <li><a href="What We Do.html">What We Do</a></li>
+                        <li><a href="our team.html">Our Team</a></li>
+                        <li><a href="our memebers.html">Our Members</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="News Page.html">News & Events &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="News Page.html">News</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="resources.html">Resources &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reports.html">Reports</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                    </ul>
+                </li>
+                <li><a href="Gallery.html">Gallery</a></li>
+                <li><a href="Contact_Us.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
         </div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="CCC-E.html">Home</a></li>
-
-            <li class="dropdown">
-                <a href="about-us.html">About &#9662;</a>
-                <ul class="dropdown-menu">
-                    <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="what-we-do.html">What We Do</a></li>
-                    <li><a href="our-team.html">Our Team</a></li>
-                    <li><a href="our-members.html">Our Members</a></li>
-                </ul>
-            </li>
-
-            <li class="dropdown">
-                <a href="news.html">News & Events &#9662;</a>
-                <ul class="dropdown-menu">
-                    <li><a href="news.html">News</a></li>
-                    <li><a href="events.html">Events</a></li>
-                </ul>
-            </li>
-
-            <li class="dropdown">
-                <a href="resources.html">Resources &#9662;</a>
-                <ul class="dropdown-menu">
-                    <li><a href="reports.html">Reports</a></li>
-                    <li><a href="publications.html">Publications</a></li>
-                </ul>
-            </li>
-
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-
-        <!-- Hamburger for mobile -->
-        <div class="hamburger" onclick="toggleMenu()">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-    </div>
-</nav>
-
+    </nav>
 
     <div id="main-list-view" class="main-list-view">
         <header class="header">
@@ -545,15 +570,16 @@
             <h2 class="section-title">Top Posts</h2>
             <div class="top-posts-grid">
                 <div class="post-card">
-                    <img class="post-image" src="https://placehold.co/600x400/87CEEB/ffffff?text=Post+Image" alt="">
+                    <img class="post-image" src="public/images/news image/new.webp" alt="">
                     <div class="post-content">
-                        <h3 class="post-title">UNIPORT develops pest-resistant maize</h3>
-                        <p class="post-excerpt">Lorem ipsum dolor sit amet...</p>
+                        <h3 class="post-title">Second Round Youth Digital Video Competition</h3>
+                        <p class="post-excerpt">CCCE has announced the "Second Round Youth Digital Video Competition: Sustainable Forest Management (SFM)". </p>
+                        
                         <button onclick="showArticleView()" class="read-more-button">Read More</button>
                     </div>
                 </div>
                 <div class="post-card">
-                    <img class="post-image" src="https://placehold.co/600x400/F08080/ffffff?text=Post+Image" alt="">
+                    <img class="post-image" src="public\images\news image\ne 8.webp" alt="">
                     <div class="post-content">
                         <h3 class="post-title">Another great article title here</h3>
                         <p class="post-excerpt">Lorem ipsum dolor sit amet...</p>
@@ -630,12 +656,15 @@
             <button onclick="showListView()" class="back-button">Back to News</button>
         </header>
         <div class="article-content">
-            <img class="article-image" src="https://placehold.co/800x600/6A5ACD/ffffff?text=Main+Article+Image" alt="">
+            <img class="article-image" src="public/images/news image/new.webp" alt="">
             <div class="article-text-container">
-                <h2 class="article-title">UNIPORT develops pest-resistant maize</h2>
-                <p>Lorem ipsum dolor sit amet...</p>
+                <h2 class="article-title">Second Round Youth Digital Video Competition</h2>
+                <p>CCCE has announced the "Second Round Youth Digital Video Competition: Sustainable Forest Management (SFM)".</p>
+                <p>The competition is for youth between 18 and 35 years old who are passionate about forests, climate action, and storytelling. Participants are asked to submit 3-5 minute storytelling or educational videos on forest conservation.</p>
+                <p>The deadline for submissions is August 24, 2025. Prizes include monetary awards, certificates, and features on CCCE platforms, with a special emphasis on encouraging female youth to apply. The competition is organized in partnership with EnfLuencers and financially supported by VERDENS SKOVE.</p>
             </div>
         </div>
+        
     </div>
 
     <div id="more-posts-view" class="more-posts-view hidden">
@@ -718,63 +747,70 @@
             </div>
         </div>
     </div>
-    
+    <!-- footer  -->
     <footer class="main-footer">
         <div class="footer-top">
-            <div class="footer-column">
+            <div class="footer-column footer-logo-column">
                 <div class="footer-logo">
-                    <img src="images/logo.png" alt="CCC-E Logo">
-                    <p>Consortium for Climate Change Ethiopia</p>
+                    <a href="index.html">
+                        <img src="public\images\logo.png" alt="CCC-E Logo">
+                    </a>
+                    <p>Consortium For Climate Change Ethiopia</p>
                 </div>
                 <div class="social-icons">
-                    <a href="#"><img src="images/icons/instagram.png" alt="Instagram"></a>
-                    <a href="#"><img src="images/icons/twitter2.png" alt="Twitter"></a>
-                    <a href="#"><img src="images/icons/facebook.png" alt="Facebook"></a>
-                    <a href="#"><img src="images/icons/linkedin.png" alt="LinkedIn"></a>
+                    <a href="#"><img src="public\images\icons\facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="public\images\icons\twitter.png" alt="Twitter"></a>
+                    <a href="#"><img src="public\images\icons\linkedin.png" alt="LinkedIn"></a>
+                    <a href="#"><img src="public\images\icons\instagram.png" alt="Instagram"></a>
                 </div>
             </div>
+
             <div class="footer-column">
                 <h3>Get in Touch</h3>
-                <ul class="contact-info">
-                    <li>Yeka Sub City, ON the way from Kazanchis to Abuare</li>
-                    <li>Addis Ababa, Ethiopia</li>
-                    <li>ccceethiopia2@gmail.com</li>
-                    <li>(251) 115 52 28 88</li>
+                <ul>
+                    <li>Yeka Sub City, Kazanchis to Abuare<br>Addis Ababa, Ethiopia</li>
+                    <li>Email: ccceethiopia2@gmail.com</li>
+                    <li>Phone: (251) 115 52 28 88</li>
                 </ul>
             </div>
+
             <div class="footer-column">
-                <h3>Resource</h3>
+                <h3>Resources</h3>
                 <ul>
                     <li><a href="#">Publication & Reports</a></li>
-                    <li><a href="#">Digital Forestry Information Hub</a></li>
+                    <li><a href="#">Digital Forestry Hub</a></li>
                     <li><a href="#">Research</a></li>
                     <li><a href="#">Toolkits & Guidelines</a></li>
                 </ul>
             </div>
+
             <div class="footer-column">
                 <h3>Our Company</h3>
                 <ul>
-                    <li><a href="#">project</a></li>
-                    <li><a href="#">Opportunity</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Opportunities</a></li>
                     <li><a href="#">Our Team</a></li>
-                    <li><a href="#">News & Event</a></li>
+                    <li><a href="#">News & Events</a></li>
                     <li><a href="#">Gallery</a></li>
                     <li><a href="#">Contact Us</a></li>
                 </ul>
             </div>
+
             <div class="footer-column">
-                <h3>Join a Newsletter</h3>
+                <h3>Join Our Newsletter</h3>
                 <form class="newsletter-form">
-                    <input type="email" placeholder="Your Email">
+                    <input type="email" placeholder="Your Email" required>
                     <button type="submit">Subscribe</button>
                 </form>
                 <p>We are never a spam!</p>
             </div>
         </div>
+
         <div class="footer-bottom">
             <p>© Copyright CCC-E 2025. All Rights Reserved</p>
         </div>
     </footer>
+
 
     <script>
         function toggleMenu() {
