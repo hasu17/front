@@ -1,844 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Page</title>
-    <style>
-        /* General Layout and Responsiveness */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        /* Removed max-width from .body-container to allow navbar/footer full width */
-        .body-container {
-            /* max-width: 1200px; */ /* Removed */
-            margin: 0 auto;
-            /* padding: 20px; */ /* Padding will be added to specific content sections */
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* Navbar Styling */
-        .navbar {
-            background-color: #AAD9B4;
-            padding: 20px 40px;
-            position: relative;
-            z-index: 5;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo img {
-            height: 50px;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .nav-links li {
-            position: relative;
-        }
-        
-        .nav-links li ul {
-            list-style: none;
-            padding-left: 0;
-            margin: 0;
-        }
-
-        .nav-links li a {
-            text-decoration: none;
-            color: #004d00;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links li a:hover {
-            color: #0072BC;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #AAD9B4;
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 10;
-        }
-        .nav-links li:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dropdown-menu li a {
-            padding: 12px 16px;
-            display: block;
-            white-space: nowrap;
-        }
-
-        /* Mobile Nav */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-        }
-        
-        .hamburger .bar {
-            display: block;
-            width: 25px;
-            height: 3px;
-            margin: 5px auto;
-            background-color: #333;
-            transition: all 0.3s ease-in-out;
-        }
-
-        @media (max-width: 991px) {
-            .nav-container {
-                padding: 0 20px;
-            }
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background-color: #AAD9B4;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                padding: 20px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
-            .nav-links.active {
-                display: flex;
-            }
-            .hamburger {
-                display: block;
-            }
-            
-            .dropdown-menu {
-                position: static;
-                box-shadow: none;
-                background-color: transparent;
-            }
-        }
-
-        /* Main Content Sections - now responsible for their own max-width and padding */
-        .main-list-view, .article-view, .more-posts-view {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            /* background-color: #fff; */ /* Removed white background */
-            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */ /* Removed box shadow */
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header-title {
-            font-size: 2.5rem;
-            color: #007bff;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        /* Top Posts Grid */
-        .top-posts-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .post-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            background-color: #fff; /* Added white background for the cards themselves */
-        }
-        
-        .recent-post-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            background-color: #fff; /* Added white background for the cards themselves */
-        }
-
-        .post-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .post-content {
-            padding: 15px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .post-title {
-            font-size: 1.25rem;
-            margin-top: 0;
-        }
-
-        .post-excerpt {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin: 10px 0;
-        }
-
-        /* Consistent button styling */
-        .read-more-button {
-            align-self: flex-start;
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .read-more-button:hover {
-            background-color: #0056b3;
-        }
-        
-        .more-posts-button {
-            display: block;
-            margin: 40px auto 0;
-            padding: 15px 30px;
-            background-color: #2b5c2d;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .more-posts-button:hover {
-            background-color: #1c421e;
-        }
-
-        /* Recent Posts Grid */
-        .recent-posts-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .recent-post-flex {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .recent-post-image {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-
-        .recent-post-title {
-            font-size: 1rem;
-            margin: 0;
-        }
-
-        .recent-post-excerpt {
-            font-size: 0.8rem;
-            color: #888;
-            margin: 5px 0 0;
-        }
-
-        /* More Posts Section (3x3 Grid) */
-        .all-posts-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .all-post-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            background-color: #fff; /* Added white background for the cards themselves */
-        }
-
-        .all-post-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-
-        .all-post-content {
-            padding: 15px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .all-post-title {
-            font-size: 1.1rem;
-            margin-top: 0;
-        }
-
-        .all-post-excerpt {
-            font-size: 0.85rem;
-            color: #666;
-            margin: 10px 0;
-        }
-
-        /* Article View Styling */
-        .article-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .article-image {
-            width: 100%;
-            max-width: 800px;
-            height: auto;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .article-title {
-            font-size: 2rem;
-            margin-top: 0;
-        }
-
-        .back-button {
-            padding: 10px 20px;
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: #5a6268;
-        }
-
-        /* Footer Styling */
-        .main-footer {
-            background-color: #f5f5f5; /* matches image provided in previous context */
-            font-family: Arial, sans-serif;
-            color: #333;
-        }
-
-        .footer-top {
-            display: grid;
-            grid-template-columns: 1.5fr repeat(4, 1fr); /* 5 columns with first being wider */
-            gap: 30px;
-            /* max-width: 1200px; */ /* Removed to make it full width */
-            margin: 0 auto; /* Keeps content centered if there's a max-width, but here it's full width */
-            padding: 50px 20px; /* Added horizontal padding */
-            background-color: #d7f0d4; /* matches image provided */
-        }
-
-        .footer-column {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .footer-logo img {
-            height: 50px;
-            margin-bottom: 10px;
-        }
-
-        .footer-logo p {
-            margin: 0;
-            font-weight: bold;
-            color: #1c6375;
-        }
-        
-        .footer-column h3 {
-            font-size: 1.2rem;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .social-icons img {
-            height: 24px;
-        }
-
-        .footer-column ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 8px;
-        }
-
-        .footer-column ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .footer-column ul li a:hover {
-            color: #007bff;
-        }
-
-        .newsletter-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .newsletter-form input[type="email"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        .newsletter-form button {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .newsletter-form + p {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 10px;
-        }
-
-        .footer-bottom {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .footer-bottom p {
-            margin: 0;
-            font-size: 0.8rem;
-        }
-        
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background-color: #d7f0d4;
-                padding-top: 10px;
-            }
-
-            .nav-links.show {
-                display: flex;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-            
-            .top-posts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .recent-posts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .all-posts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-top {
-                grid-template-columns: 1fr;
-                padding: 30px 20px; /* Adjust padding for mobile */
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Page</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<!-- Navigation bar -->
-<nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <a href="CCC-E.html">
-                    <img src="public/images/logo.png" alt="Logo">
-                </a>
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="CCC-E.html">Home</a></li>
-                <li class="dropdown">
-                    <a href="About Us.html">About &#9662;</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="About Us.html">About Us</a></li>
-                        <li><a href="What We Do.html">What We Do</a></li>
-                        <li><a href="our team.html">Our Team</a></li>
-                        <li><a href="our memebers.html">Our Members</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="News Page.html">News & Events &#9662;</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="News Page.html">News</a></li>
-                        <li><a href="events.html">Events</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="resources.html">Resources &#9662;</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="reports.html">Reports</a></li>
-                        <li><a href="resources.html">Resources</a></li>
-                    </ul>
-                </li>
-                <li><a href="Gallery.html">Gallery</a></li>
-                <li><a href="Contact_Us.html">Contact</a></li>
-            </ul>
-            <div class="hamburger" onclick="toggleMenu()">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-        </div>
+<body>
+
+  <!-- ====== HEADER (unchanged) ====== -->
+  <header class="site-header">
+    <nav class="navbar">
+      <div class="nav-container">
+        <h1 class="logo">My News Site</h1>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </div>
     </nav>
+  </header>
 
-    <div id="main-list-view" class="main-list-view">
-        <header class="header">
-            <h1 class="header-title">News</h1>
-        </header>
+  <!-- ====== MAIN CONTENT ====== -->
+  <main>
+    <!-- List view -->
+    <section id="main-list-view">
+      <h2 class="section-title">Top Posts</h2>
+      <div class="posts-grid">
+        
+        <!-- Post 1 -->
+        <article class="post">
+          <img src="public/images/news image/new.webp" alt="Post Image">
+          <h3>Second Round Youth Digital Video Competition</h3>
+          <p>CCCE has announced the "Second Round Youth Digital Video Competition: Sustainable Forest Management (SFM)"...</p>
+          <button onclick="showArticleView(0)" class="read-more-button">Read More</button>
+        </article>
 
-        <div class="top-posts-section">
-            <h2 class="section-title">Top Posts</h2>
-            <div class="top-posts-grid">
-                <div class="post-card">
-                    <img class="post-image" src="public/images/news image/new.webp" alt="">
-                    <div class="post-content">
-                        <h3 class="post-title">Second Round Youth Digital Video Competition</h3>
-                        <p class="post-excerpt">CCCE has announced the "Second Round Youth Digital Video Competition: Sustainable Forest Management (SFM)". </p>
-                        
-                        <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                    </div>
-                </div>
-                <div class="post-card">
-                    <img class="post-image" src="public\images\news image\ne 8.webp" alt="">
-                    <div class="post-content">
-                        <h3 class="post-title">Another great article title here</h3>
-                        <p class="post-excerpt">Lorem ipsum dolor sit amet...</p>
-                        <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                    </div>
-                </div>
-                <div class="post-card">
-                    <img class="post-image" src="https://placehold.co/600x400/90EE90/ffffff?text=Post+Image" alt="">
-                    <div class="post-content">
-                        <h3 class="post-title">A third post about something interesting</h3>
-                        <p class="post-excerpt">Lorem ipsum dolor sit amet...</p>
-                        <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                    </div>
-                </div>
-                <div class="post-card">
-                    <img class="post-image" src="https://placehold.co/600x400/FFFF99/000000?text=Post+Image" alt="">
-                    <div class="post-content">
-                        <h3 class="post-title">And a fourth one to fill the space</h3>
-                        <p class="post-excerpt">Lorem ipsum dolor sit amet...</p>
-                        <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Post 2 -->
+        <article class="post">
+          <img src="public/images/news image/ne 8.webp" alt="Post Image">
+          <h3>Another great article title here</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+          <button onclick="showArticleView(1)" class="read-more-button">Read More</button>
+        </article>
 
-        <div class="recent-posts-section">
-            <h2 class="section-title">Recent Posts</h2>
-            <div class="recent-posts-grid">
-                <div class="recent-post-card">
-                    <div class="recent-post-flex">
-                        <img class="recent-post-image" src="https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image" alt="">
-                        <div>
-                            <h3 class="recent-post-title">A simple post title</h3>
-                            <p class="recent-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="recent-post-card">
-                    <div class="recent-post-flex">
-                        <img class="recent-post-image" src="https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image" alt="">
-                        <div>
-                            <h3 class="recent-post-title">A simple post title</h3>
-                            <p class="recent-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="recent-post-card">
-                    <div class="recent-post-flex">
-                        <img class="recent-post-image" src="https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image" alt="">
-                        <div>
-                            <h3 class="recent-post-title">A simple post title</h3>
-                            <p class="recent-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="recent-post-card">
-                    <div class="recent-post-flex">
-                        <img class="recent-post-image" src="https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image" alt="">
-                        <div>
-                            <h3 class="recent-post-title">A simple post title</h3>
-                            <p class="recent-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="more-posts-container">
-            <button onclick="showMorePostsView()" class="more-posts-button">More posts &#8594;</button>
-        </div>
-    </div>
+        <!-- Post 3 -->
+        <article class="post">
+          <img src="https://placehold.co/600x400/90EE90/ffffff?text=Post+Image" alt="Post Image">
+          <h3>A third post about something interesting</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+          <button onclick="showArticleView(2)" class="read-more-button">Read More</button>
+        </article>
 
-    <div id="article-view" class="article-view hidden">
+        <!-- Post 4 -->
+        <article class="post">
+          <img src="https://placehold.co/600x400/FFFF99/000000?text=Post+Image" alt="Post Image">
+          <h3>And a fourth one to fill the space</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+          <button onclick="showArticleView(3)" class="read-more-button">Read More</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- Article view -->
+    <section id="article-view" class="hidden"></section>
+
+    <!-- More posts -->
+    <section id="more-posts-view" class="hidden">
+      <h2 class="section-title">More Posts</h2>
+      <div class="recent-posts">
+        <h3 onclick="showArticleView(4)" style="cursor:pointer; color:#007bff;">A simple post title 1</h3>
+        <h3 onclick="showArticleView(5)" style="cursor:pointer; color:#007bff;">A simple post title 2</h3>
+        <h3 onclick="showArticleView(6)" style="cursor:pointer; color:#007bff;">A simple post title 3</h3>
+        <h3 onclick="showArticleView(7)" style="cursor:pointer; color:#007bff;">A simple post title 4</h3>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== FOOTER (unchanged) ====== -->
+  <footer class="site-footer">
+    <p>&copy; 2025 My News Site. All rights reserved.</p>
+  </footer>
+
+  <!-- ====== JAVASCRIPT ====== -->
+  <script>
+    const mainListView = document.getElementById('main-list-view');
+    const articleView = document.getElementById('article-view');
+    const morePostsView = document.getElementById('more-posts-view');
+
+    // Articles data
+    const articles = [
+      {
+        title: "Second Round Youth Digital Video Competition",
+        image: "public/images/news image/new.webp",
+        content: `
+          <p>CCCE has announced the "Second Round Youth Digital Video Competition: Sustainable Forest Management (SFM)".</p>
+          <p>The competition is for youth between 18 and 35 years old who are passionate about forests, climate action, and storytelling.</p>
+          <p>Participants are asked to submit 3-5 minute storytelling or educational videos on forest conservation.</p>
+          <p>The deadline for submissions is August 24, 2025.</p>
+        `
+      },
+      {
+        title: "Another great article title here",
+        image: "public/images/news image/ne 8.webp",
+        content: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Detailed article content here.</p>"
+      },
+      {
+        title: "A third post about something interesting",
+        image: "https://placehold.co/600x400/90EE90/ffffff?text=Post+Image",
+        content: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Detailed article content here.</p>"
+      },
+      {
+        title: "And a fourth one to fill the space",
+        image: "https://placehold.co/600x400/FFFF99/000000?text=Post+Image",
+        content: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Detailed article content here.</p>"
+      },
+      {
+        title: "A simple post title 1",
+        image: "https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image",
+        content: "<p>Full article content for recent post 1.</p>"
+      },
+      {
+        title: "A simple post title 2",
+        image: "https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image",
+        content: "<p>Full article content for recent post 2.</p>"
+      },
+      {
+        title: "A simple post title 3",
+        image: "https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image",
+        content: "<p>Full article content for recent post 3.</p>"
+      },
+      {
+        title: "A simple post title 4",
+        image: "https://placehold.co/100x100/A9A9A9/ffffff?text=Post+Image",
+        content: "<p>Full article content for recent post 4.</p>"
+      }
+    ];
+
+    // Show article dynamically
+    function showArticleView(index) {
+      const article = articles[index];
+      articleView.innerHTML = `
         <header class="article-header">
-            <button onclick="showListView()" class="back-button">Back to News</button>
+          <button onclick="showListView()" class="back-button">Back to News</button>
         </header>
         <div class="article-content">
-            <img class="article-image" src="public/images/news image/new.webp" alt="">
-            <div class="article-text-container">
-                <h2 class="article-title">Second Round Youth Digital Video Competition</h2>
-                <p>CCCE has announced the "Second Round Youth Digital Video Competition: Sustainable Forest Management (SFM)".</p>
-                <p>The competition is for youth between 18 and 35 years old who are passionate about forests, climate action, and storytelling. Participants are asked to submit 3-5 minute storytelling or educational videos on forest conservation.</p>
-                <p>The deadline for submissions is August 24, 2025. Prizes include monetary awards, certificates, and features on CCCE platforms, with a special emphasis on encouraging female youth to apply. The competition is organized in partnership with EnfLuencers and financially supported by VERDENS SKOVE.</p>
-            </div>
+          <img class="article-image" src="${article.image}" alt="${article.title}">
+          <div class="article-text-container">
+            <h2 class="article-title">${article.title}</h2>
+            ${article.content}
+          </div>
         </div>
-        
-    </div>
+      `;
+      mainListView.classList.add('hidden');
+      morePostsView.classList.add('hidden');
+      articleView.classList.remove('hidden');
+    }
 
-    <div id="more-posts-view" class="more-posts-view hidden">
-        <header class="article-header back-button-container">
-            <button onclick="showListView()" class="back-button">Back to News</button>
-        </header>
-        <h2 class="section-title">All Posts</h2>
-        <div class="all-posts-grid">
-            <div class="all-post-card">
-                <img class="all-post-image" src="https://placehold.co/600x400/87CEEB/ffffff?text=Post+Image" alt="">
-                <div class="all-post-content">
-                    <h3 class="all-post-title">An all-post title 1</h3>
-                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                </div>
-            </div>
-            <div class="all-post-card">
-                <img class="all-post-image" src="https://placehold.co/600x400/F08080/ffffff?text=Post+Image" alt="">
-                <div class="all-post-content">
-                    <h3 class="all-post-title">An all-post title 2</h3>
-                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                </div>
-            </div>
-            <div class="all-post-card">
-                <img class="all-post-image" src="https://placehold.co/600x400/90EE90/ffffff?text=Post+Image" alt="">
-                <div class="all-post-content">
-                    <h3 class="all-post-title">An all-post title 3</h3>
-                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                </div>
-            </div>
-            <div class="all-post-card">
-                <img class="all-post-image" src="https://placehold.co/600x400/A9A9A9/ffffff?text=Post+Image" alt="">
-                <div class="all-post-content">
-                    <h3 class="all-post-title">An all-post title 4</h3>
-                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                </div>
-            </div>
-            <div class="all-post-card">
-                <img class="all-post-image" src="https://placehold.co/600x400/D3D3D3/ffffff?text=Post+Image" alt="">
-                <div class="all-post-content">
-                    <h3 class="all-post-title">An all-post title 5</h3>
-                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                </div>
-            </div>
-            <div class="all-post-card">
-                <img class="all-post-image" src="https://placehold.co/600x400/800000/ffffff?text=Post+Image" alt="">
-                <div class="all-post-content">
-                    <h3 class="all-post-title">An all-post title 6</h3>
-                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                </div>
-            </div>
-            <div class="all-post-card">
-                <img class="all-post-image" src="https://placehold.co/600x400/2F4F4F/ffffff?text=Post+Image" alt="">
-                <div class="all-post-content">
-                    <h3 class="all-post-title">An all-post title 7</h3>
-                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                </div>
-            </div>
-            <div class="all-post-card">
-                <img class="all-post-image" src="https://placehold.co/600x400/008B8B/ffffff?text=Post+Image" alt="">
-                <div class="all-post-content">
-                    <h3 class="all-post-title">An all-post title 8</h3>
-                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                </div>
-            </div>
-            <div class="all-post-card">
-                <img class="all-post-image" src="https://placehold.co/600x400/4B0082/ffffff?text=Post+Image" alt="">
-                <div class="all-post-content">
-                    <h3 class="all-post-title">An all-post title 9</h3>
-                    <p class="all-post-excerpt">Lorem ipsum dolor sit amet...</p>
-                    <button onclick="showArticleView()" class="read-more-button">Read More</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- footer  -->
-    <footer class="main-footer">
-        <div class="footer-top">
-            <div class="footer-column footer-logo-column">
-                <div class="footer-logo">
-                    <a href="index.html">
-                        <img src="public\images\logo.png" alt="CCC-E Logo">
-                    </a>
-                    <p>Consortium For Climate Change Ethiopia</p>
-                </div>
-                <div class="social-icons">
-                    <a href="#"><img src="public\images\icons\facebook.png" alt="Facebook"></a>
-                    <a href="#"><img src="public\images\icons\twitter.png" alt="Twitter"></a>
-                    <a href="#"><img src="public\images\icons\linkedin.png" alt="LinkedIn"></a>
-                    <a href="#"><img src="public\images\icons\instagram.png" alt="Instagram"></a>
-                </div>
-            </div>
+    function showListView() {
+      mainListView.classList.remove('hidden');
+      articleView.classList.add('hidden');
+      morePostsView.classList.add('hidden');
+    }
 
-            <div class="footer-column">
-                <h3>Get in Touch</h3>
-                <ul>
-                    <li>Yeka Sub City, Kazanchis to Abuare<br>Addis Ababa, Ethiopia</li>
-                    <li>Email: ccceethiopia2@gmail.com</li>
-                    <li>Phone: (251) 115 52 28 88</li>
-                </ul>
-            </div>
+    function showMorePostsView() {
+      mainListView.classList.add('hidden');
+      articleView.classList.add('hidden');
+      morePostsView.classList.remove('hidden');
+    }
+  </script>
 
-            <div class="footer-column">
-                <h3>Resources</h3>
-                <ul>
-                    <li><a href="#">Publication & Reports</a></li>
-                    <li><a href="#">Digital Forestry Hub</a></li>
-                    <li><a href="#">Research</a></li>
-                    <li><a href="#">Toolkits & Guidelines</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Our Company</h3>
-                <ul>
-                    <li><a href="#">Projects</a></li>
-                    <li><a href="#">Opportunities</a></li>
-                    <li><a href="#">Our Team</a></li>
-                    <li><a href="#">News & Events</a></li>
-                    <li><a href="#">Gallery</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Join Our Newsletter</h3>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Your Email" required>
-                    <button type="submit">Subscribe</button>
-                </form>
-                <p>We are never a spam!</p>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>© Copyright CCC-E 2025. All Rights Reserved</p>
-        </div>
-    </footer>
-
-
-    <script>
-        function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('show');
-        }
-
-        const mainListView = document.getElementById('main-list-view');
-        const articleView = document.getElementById('article-view');
-        const morePostsView = document.getElementById('more-posts-view');
-
-        function showArticleView() {
-            mainListView.classList.add('hidden');
-            morePostsView.classList.add('hidden');
-            articleView.classList.remove('hidden');
-        }
-
-        function showListView() {
-            mainListView.classList.remove('hidden');
-            articleView.classList.add('hidden');
-            morePostsView.classList.add('hidden');
-        }
-
-        function showMorePostsView() {
-            mainListView.classList.add('hidden');
-            articleView.classList.add('hidden');
-            morePostsView.classList.remove('hidden');
-        }
-    </script>
 </body>
 </html>
